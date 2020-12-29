@@ -11,3 +11,6 @@ rootProject.name = "PokéDEX"
 
 // Include the library subproject
 include ':lib'
+
+// Include the application subproject
+include ':app'

@@ -1,0 +1,117 @@
+// Include the required plugins
+plugins {
+	id 'com.android.application'             // Android application
+	id 'kotlin-android'                      // Android APIs for Kotlin
+	id 'androidx.navigation.safeargs.kotlin' // Safe arguments
+	id 'org.jetbrains.dokka'                 // KDoc documentation
+}
+
+// Configure the Android plugin
+android {
+	// Set the SDK API and the build tools versions
+	compileSdkVersion 30
+	buildToolsVersion '30.0.3'
+
+	// Set the default configuration
+	defaultConfig {
+		applicationId 'org.egasato.pokedex'
+		minSdkVersion 16
+		targetSdkVersion 30
+		versionCode 1
+		versionName '0.0.0.1'
+		buildConfigField "String",  "APP_NAME",    "\"${rootProject.name}\""
+		buildConfigField "boolean", "LOG_CYCLE",   "$log_lifecycle"
+		buildConfigField "boolean", "LOG_GETTER",  "$log_getters"
+		buildConfigField "boolean", "LOG_SETTER",  "$log_setters"
+		buildConfigField "boolean", "LOG_ANDROID", "$log_android_lifecycle"
+		buildConfigField "boolean", "LOG_EVENT",   "$log_events"
+		buildConfigField "boolean", "LOG_DRAW",    "$log_drawing"
+	}
+
+	// Set different build types
+	buildTypes {
+		// The release build is optimized for size
+		release {
+			minifyEnabled true
+			shrinkResources true
+			proguardFile getDefaultProguardFile('proguard-android-optimize.txt')
+			proguardFile 'proguard-rules-nolog-cycle.pro'
+			proguardFile 'proguard-rules-nolog-getter.pro'
+			proguardFile 'proguard-rules-nolog-setter.pro'
+			proguardFile 'proguard-rules-nolog-android.pro'
+			proguardFile 'proguard-rules-nolog-event.pro'
+			proguardFile 'proguard-rules-nolog-draw.pro'
+		}
+
+		// The development build is optimized for build speed and strips the logging calls
+		// unless explicitly defined otherwise
+		debug {
+			minifyEnabled true
+			shrinkResources false
+			proguardFile getDefaultProguardFile('proguard-android-optimize.txt')
+			proguardFile 'proguard-rules-debug.pro'
+			if (!log_lifecycle) proguardFile 'proguard-rules-nolog-cycle.pro'
+			if (!log_getters) proguardFile 'proguard-rules-nolog-getter.pro'
+			if (!log_setters) proguardFile 'proguard-rules-nolog-setter.pro'
+			if (!log_android_lifecycle) proguardFile 'proguard-rules-nolog-android.pro'
+			if (!log_events) proguardFile 'proguard-rules-nolog-event.pro'
+			if (!log_drawing) proguardFile 'proguard-rules-nolog-draw.pro'
+		}
+	}
+
+	// Compile for Java 1.8 compatibility
+	compileOptions {
+		sourceCompatibility JavaVersion.VERSION_1_8
+		targetCompatibility JavaVersion.VERSION_1_8
+	}
+
+	// Target the JVM 1.8
+	kotlinOptions {
+		jvmTarget = '1.8'
+	}
+}
+
+// Configure the "dokkaHtml" task
+dokkaHtml.configure {
+	dokkaSourceSets {
+		named("main") {
+			jdkVersion.set(8)             // Use the JDK version 8
+			reportUndocumented.set(false) // Don't warn about undocumented code
+			includeNonPublic.set(false)   // Don't document non-public members
+			skipDeprecated.set(true)      // Document deprecated members
+			skipEmptyPackages.set(true)   // Don't index empty packages
+			noJdkLink.set(true)           // Link JDK docs (online)
+			noStdlibLink.set(true)        // Link kotlin-stdlib docs (online)
+			noAndroidSdkLink.set(true)    // Link Android docs (online)
+			perPackageOption {
+				matchingRegex.set('org\\.egasato\\.pokedex($|\\.).*') // Match the PokéDEX packages
+				reportUndocumented.set(true)                          // Warn about undocumented code
+				includeNonPublic.set(true)                            // Document non-public members
+				skipDeprecated.set(false)                             // Document deprecated members
+				noJdkLink.set(false)                                  // Link JDK docs (online)
+				noStdlibLink.set(false)                               // Link kotlin-stdlib docs (online)
+				noAndroidSdkLink.set(false)                           // Link Android docs (online)
+			}
+		}
+	}
+}
+
+// Add the dependencies of the application
+dependencies {
+	implementation project(':lib')                                            // The utilities subproject
+	implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"       // (:lib dependency) Kotlin standard library
+	implementation 'androidx.core:core-ktx:1.3.2'                             // (:lib dependency) Kotlin extensions for Android (core)
+	implementation 'androidx.appcompat:appcompat:1.2.0'                       // (:lib dependency) AppCompat* classes
+	implementation 'io.github.microutils:kotlin-logging:2.0.3'                // (:lib dependency) SLF4J Kotlin logging extensions
+	implementation 'sk.baka.slf4j:slf4j-handroid:1.7.30'                      // (:lib indirect dependency) SLF4J implementation
+	implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0'         // (Recommended/Best practice) ViewModel support
+	implementation 'androidx.activity:activity-ktx:1.1.0'                     // (Recommended/Best practice) ViewModel extensions for Activity
+	implementation 'androidx.fragment:fragment-ktx:1.2.5'                     // (Recommended/Best practice) ViewModel extensions for Fragment
+	implementation "androidx.navigation:navigation-fragment-ktx:$nav_version" // (Recommended/Best practice) Fragment navigation
+	implementation "androidx.navigation:navigation-ui-ktx:$nav_version"       // (Recommended/Best practice) Fragment navigation
+	implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.2.0'           // (Recommended/Best practice) Lifecycle scope for Kotlin Coroutines
+	implementation 'com.google.android.material:material:1.2.1'               // (Recommended) Material design
+	implementation 'androidx.constraintlayout:constraintlayout:2.0.4'         // (Recommended) ConstraintLayout view
+	implementation 'com.google.code.gson:gson:2.8.6'                          // JSON parser
+	implementation 'io.reactivex.rxjava3:rxkotlin:3.0.1'                      // (Reactive programming) ReactiveX for Java (Kotlin)
+}
