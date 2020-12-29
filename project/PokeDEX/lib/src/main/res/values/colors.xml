@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<!-- Black shades -->
+	<color name="black_500">#313131</color>
+	<color name="black_700">#282828</color>
+	<color name="black_900">#000</color>
+	<color name="black_text_light">#CCC</color>
+	<color name="black_text_dark">@color/black_900</color>
+
+	<!-- Dark gray shades -->
+	<color name="dark_gray_500">#616161</color>
+	<color name="dark_gray_700">#313131</color>
+	<color name="dark_gray_900">#2E2E2E</color>
+	<color name="dark_gray_text_light">#FFF</color>
+	<color name="dark_gray_text_dark">#000</color>
+
+	<!-- Gray shades -->
+	<color name="gray_500">#A4A4A4</color>
+	<color name="gray_700">#717171</color>
+	<color name="gray_900">#616161</color>
+	<color name="gray_text_light">@color/gray_900</color>
+	<color name="gray_text_dark">#212121</color>
+
+	<!-- Light gray shades -->
+	<color name="light_gray_500">#F2F2F2</color>
+	<color name="light_gray_700">#D0D0D0</color>
+	<color name="light_gray_900">#BFBFBF</color>
+	<color name="light_gray_text_light">#FFF</color>
+	<color name="light_gray_text_dark">#919191</color>
+
+	<!-- Light brown shades -->
+	<color name="light_brown_500">#C7AA79</color>
+	<color name="light_brown_700">#B89355</color>
+	<color name="light_brown_900">#9A7840</color>
+	<color name="light_brown_text_light">#CCC</color>
+	<color name="light_brown_text_dark">#524022</color>
+
+	<!-- Brown shades -->
+	<color name="brown_500">#675945</color>
+	<color name="brown_700">#483F31</color>
+	<color name="brown_900">#2A241C</color>
+	<color name="brown_text_light">#CCC</color>
+	<color name="brown_text_dark">@color/brown_900</color>
+
+	<!-- Red shades -->
+	<color name="red_500">#E3350D</color>
+	<color name="red_700">#B32A0A</color>
+	<color name="red_900">#831E07</color>
+	<color name="red_text_light">#CCC</color>
+	<color name="red_text_dark">@color/red_900</color>
+
+	<!-- Light red shades -->
+	<color name="light_red_500">#FF514F</color>
+	<color name="light_red_700">#FF1F1C</color>
+	<color name="light_red_900">#E80300</color>
+	<color name="light_red_text_light">#FFF</color>
+	<color name="light_red_text_dark">#820100</color>
+
+	<!-- Orange shades -->
+	<color name="orange_500">#EE6B2F</color>
+	<color name="orange_700">#DA471B</color>
+	<color name="orange_900">#A93f0E</color>
+	<color name="orange_text_light">#FFF</color>
+	<color name="orange_text_dark">#4B1C06</color>
+
+	<!-- Light yellow shades -->
+	<color name="light_yellow_500">#FFE84C</color>
+	<color name="light_yellow_700">#FFE119</color>
+	<color name="light_yellow_900">#E5C800</color>
+	<color name="light_yellow_text_light">#FFF</color>
+	<color name="light_yellow_text_dark">#7F6F00</color>
+
+	<!-- Yellow shades -->
+	<color name="yellow_500">#E6BC2F</color>
+	<color name="yellow_700">#DAA31C</color>
+	<color name="yellow_900">#9C7D13</color>
+	<color name="yellow_text_light">#FFF</color>
+	<color name="yellow_text_dark">#212121</color>
+
+	<!-- Light green shades -->
+	<color name="light_green_500">#56D96A</color>
+	<color name="light_green_700">#2ECE47</color>
+	<color name="light_green_900">#25A438</color>
+	<color name="light_green_text_light">#FFF</color>
+	<color name="light_green_text_dark">#12511C</color>
+
+	<!-- Green shades -->
+	<color name="green_500">#4DAD5B</color>
+	<color name="green_700">#369143</color>
+	<color name="green_900">#2E6636</color>
+	<color name="green_text_light">#FFF</color>
+	<color name="green_text_dark">#0E2011</color>
+
+	<!-- Cyan shades -->
+	<color name="cyan_500">#30A7D7</color>
+	<color name="cyan_700">#1B82B1</color>
+	<color name="cyan_900">#1A6887</color>
+	<color name="cyan_text_light">#FFF</color>
+	<color name="cyan_text_dark">#0A2631</color>
+
+	<!-- Blue shades -->
+	<color name="blue_500">#1B53BA</color>
+	<color name="blue_700">#1847D7</color>
+	<color name="blue_900">#0E2B61</color>
+	<color name="blue_text_light">#30A7D7</color>
+	<color name="blue_text_dark">@color/blue_900</color>
+
+	<!-- Light purple shades -->
+	<color name="light_purple_500">#B38AEA</color>
+	<color name="light_purple_700">#975FE2</color>
+	<color name="light_purple_900">#7B34DA</color>
+	<color name="light_purple_text_light">#FFF</color>
+	<color name="light_purple_text_dark">#4B1A8E</color>
+
+	<!-- Purple shades -->
+	<color name="purple_500">#855AC9</color>
+	<color name="purple_700">#734BB2</color>
+	<color name="purple_900">#542F8E</color>
+	<color name="purple_text_light">#FFF</color>
+	<color name="purple_text_dark">#212121</color>
+
+	<!-- Pink shades -->
+	<color name="pink_500">#FF90C4</color>
+	<color name="pink_700">#FF2A8E</color>
+	<color name="pink_900">#C3005B</color>
+	<color name="pink_text_light">#FFF</color>
+	<color name="pink_text_dark">@color/pink_900</color>
+</resources>
