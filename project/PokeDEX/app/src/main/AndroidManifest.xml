@@ -59,6 +59,9 @@
 		<!-- Declare the authentication activity -->
 		<activity android:name=".app.PokeAuthActivity" android:launchMode="singleTop" />
 
+		<!-- Declare the list activity -->
+		<activity android:name=".app.PokeListActivity" />
+
 	</application>
 
 </manifest>
