@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="typeface_pokemon_hollow">fonts/pokemon-hollow.ttf</string>
+	<string name="typeface_pokemon_solid">fonts/pokemon-solid.ttf</string>
+</resources>
