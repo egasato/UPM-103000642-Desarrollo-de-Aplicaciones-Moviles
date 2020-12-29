@@ -1,0 +1,84 @@
+// Include the required plugins
+plugins {
+	id 'com.android.library' // Android library
+	id 'kotlin-android'      // Android APIs for Kotlin
+	id 'org.jetbrains.dokka' // KDoc documentation
+}
+
+// Configure the Android plugin
+android {
+	// Set the SDK API and the build tools versions
+	compileSdkVersion 30
+	buildToolsVersion '30.0.3'
+
+	// Set the default configuration
+	defaultConfig {
+		minSdkVersion 16
+		targetSdkVersion 30
+		versionCode 1
+		versionName "1.0"
+		consumerProguardFiles "consumer-rules.pro"
+	}
+
+	// Set different build types
+	buildTypes {
+		// The release build is optimized for size
+		release {
+			minifyEnabled true
+			shrinkResources false
+			proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules-release.pro'
+		}
+
+		// The development build is optimized for build speed
+		debug {
+			minifyEnabled false
+			shrinkResources false
+			proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules-debug.pro'
+		}
+	}
+
+	// Compile for Java 1.8 compatibility
+	compileOptions {
+		sourceCompatibility JavaVersion.VERSION_1_8
+		targetCompatibility JavaVersion.VERSION_1_8
+	}
+
+	// Target the JVM 1.8
+	kotlinOptions {
+		jvmTarget = '1.8'
+	}
+}
+
+// Configure the "dokkaHtml" task
+dokkaHtml.configure {
+	dokkaSourceSets {
+		named("main") {
+			jdkVersion.set(8)             // Use the JDK version 8
+			reportUndocumented.set(false) // Don't warn about undocumented code
+			includeNonPublic.set(false)   // Don't document non-public members
+			skipDeprecated.set(true)      // Document deprecated members
+			skipEmptyPackages.set(true)   // Don't index empty packages
+			noJdkLink.set(true)           // Link JDK docs (online)
+			noStdlibLink.set(true)        // Link kotlin-stdlib docs (online)
+			noAndroidSdkLink.set(true)    // Link Android docs (online)
+			perPackageOption {
+				matchingRegex.set('org\\.egasato\\.pokedex($|\\.).*') // Match the PokéDEX packages
+				reportUndocumented.set(true)                          // Warn about undocumented code
+				includeNonPublic.set(true)                            // Document non-public members
+				skipDeprecated.set(false)                             // Document deprecated members
+				noJdkLink.set(false)                                  // Link JDK docs (online)
+				noStdlibLink.set(false)                               // Link kotlin-stdlib docs (online)
+				noAndroidSdkLink.set(false)                           // Link Android docs (online)
+			}
+		}
+	}
+}
+
+// Add the dependencies of the library
+dependencies {
+	api "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version" // Kotlin standard library
+	api 'androidx.core:core-ktx:1.3.2'                       // Kotlin extensions for Android (core)
+	api 'androidx.appcompat:appcompat:1.2.0'                 // AppCompat* classes
+	api 'io.github.microutils:kotlin-logging:2.0.3'          // SLF4J with lazy evaluation
+	api 'io.reactivex.rxjava3:rxkotlin:3.0.1'                // ReactiveX for Java (Kotlin)
+}

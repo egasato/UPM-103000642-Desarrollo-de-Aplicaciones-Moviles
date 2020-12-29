@@ -8,3 +8,6 @@ pluginManagement {
 
 // Set the project name
 rootProject.name = "PokéDEX"
+
+// Include the library subproject
+include ':lib'
