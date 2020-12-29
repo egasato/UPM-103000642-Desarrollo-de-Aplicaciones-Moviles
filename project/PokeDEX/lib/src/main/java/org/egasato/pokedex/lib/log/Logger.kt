@@ -1,6 +1,7 @@
 package org.egasato.pokedex.lib.log
 
 import mu.KLogger
+import mu.KotlinLogging
 import org.slf4j.Marker
 
 /** The prefix used with the [Logger.cycle] messages. */
@@ -40,6 +41,92 @@ var LOGGER_PREFIX_DRAW = "[draw] "
  * @author Esaú García Sánchez-Torija
  */
 interface Logger : KLogger {
+
+	///////////////////////////////////////////////// CONSTRUCTORS /////////////////////////////////////////////////
+
+	/** The companion object used to expose the static constructors.  */
+	companion object {
+
+		/**
+		 * Creates an instance that delegates to a [KLogger].
+		 *
+		 * @param logger A [KLogger] instance.
+		 * @see KotlinLogging.logger
+		 */
+		@JvmStatic
+		fun logger(logger: KLogger): Logger = BasicLogger(logger)
+
+		/**
+		 * Creates a configured instance that delegates to a [KLogger].
+		 *
+		 * @param logger A [KLogger] instance.
+		 * @param config  A [configuration][LoggerConfig] instance.
+		 * @see KotlinLogging.logger
+		 */
+		@JvmStatic
+		fun logger(logger: KLogger, config: LoggerConfig): Logger = ConfigLogger(logger, config)
+
+		/**
+		 * A static constructor with the same signature as [KotlinLogging.logger].
+		 *
+		 * @param func The first parameter.
+		 * @see KotlinLogging.logger
+		 */
+		@JvmStatic
+		fun logger(func: () -> Unit): Logger = logger(KotlinLogging.logger(func))
+
+		/**
+		 * A static constructor with the same signature as [KotlinLogging.logger] but with a
+		 * [configuration][LoggerConfig] object.
+		 *
+		 * @param config A [configuration][LoggerConfig] instance.
+		 * @param func   The first parameter.
+		 * @see KotlinLogging.logger
+		 */
+		@JvmStatic
+		fun logger(config: LoggerConfig, func: () -> Unit): Logger = logger(KotlinLogging.logger(func), config)
+
+		/**
+		 * A static constructor with the same signature as [KotlinLogging.logger].
+		 *
+		 * @param name The first parameter.
+		 * @see KotlinLogging.logger
+		 */
+		@JvmStatic
+		fun logger(name: String): Logger = logger(KotlinLogging.logger(name))
+
+		/**
+		 * A static constructor with the same signature as [KotlinLogging.logger] but with a
+		 * [configuration][LoggerConfig] object.
+		 *
+		 * @param config A [configuration][LoggerConfig] instance.
+		 * @param name  The first parameter.
+		 * @see KotlinLogging.logger
+		 */
+		@JvmStatic
+		fun logger(config: LoggerConfig, name: String): Logger = logger(KotlinLogging.logger(name), config)
+
+		/**
+		 * A static constructor with the same signature as [KotlinLogging.logger].
+		 *
+		 * @param underlyingLogger The first parameter.
+		 * @see KotlinLogging.logger
+		 */
+		@JvmStatic
+		fun logger(underlyingLogger: Logger): Logger = logger(KotlinLogging.logger(underlyingLogger))
+
+		/**
+		 * A static constructor with the same signature as [KotlinLogging.logger] but with a
+		 * [configuration][LoggerConfig] object.
+		 *
+		 * @param config           A [configuration][LoggerConfig] instance.
+		 * @param underlyingLogger The first parameter.
+		 * @see KotlinLogging.logger
+		 */
+		@JvmStatic
+		fun logger(config: LoggerConfig, underlyingLogger: Logger): Logger = logger(KotlinLogging.logger(underlyingLogger), config)
+
+	}
 
 	/////////////////////////////////////////////// OBJECT LIFECYCLE ///////////////////////////////////////////////
 
