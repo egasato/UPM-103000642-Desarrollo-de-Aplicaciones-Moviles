@@ -1,5 +1,6 @@
 package org.egasato.pokedex.app
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import org.egasato.pokedex.R
@@ -22,6 +23,11 @@ class PokeMainActivity : AppCompatActivity() {
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
 		setContentView(R.layout.splash_background)
+		val intent = Intent(this, PokeAuthActivity::class.java).apply {
+			addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
+		}
+		startActivity(intent)
+		finish()
 	}
 
 }
