@@ -8,6 +8,7 @@
 
 	<!-- General configuration of the application -->
 	<application
+		android:name=".app.PokeApplication"
 		android:allowBackup="true"
 		android:allowClearUserData="true"
 		android:allowNativeHeapPointerTagging="true"
