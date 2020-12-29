@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<!-- Metadata -->
+
+	<!-- Main activity -->
+	<string name="description_splash_fg">Closed Pokédex</string>
+	<string name="description_splash_bg">Background pattern filled with the starter Pokémons (Charmander, Squirtle and Bulbasaur)</string>
+</resources>
