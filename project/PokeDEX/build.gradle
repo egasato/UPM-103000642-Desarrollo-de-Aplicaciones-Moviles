@@ -1,0 +1,63 @@
+// Project-wide build script configuration
+buildscript {
+	// Define the Kotlin and Dokka versions we want to use using external keys
+	ext.kotlin_version = '1.4.21'
+	ext.nav_version    = '2.3.2'
+	ext.dokka_version  = '1.4.20'
+
+	// Define the performance-critical logging scenarios
+	ext.log_lifecycle         = true
+	ext.log_getters           = false
+	ext.log_setters           = false
+	ext.log_android_lifecycle = true
+	ext.log_events            = true
+	ext.log_drawing           = false
+
+	// Use jCenter's repository to download the dependencies, otherwise Google's
+	repositories {
+		jcenter()
+		google()
+	}
+
+	// Import the Android tools and the Kotlin plugins
+	dependencies {
+		classpath 'com.android.tools.build:gradle:4.1.1'
+		classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+		classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$nav_version"
+		classpath "org.jetbrains.dokka:dokka-gradle-plugin:$dokka_version"
+	}
+}
+
+// Include the Dokka plugin to generate multi-module configuration
+plugins {
+	id 'org.jetbrains.dokka' version "$dokka_version"
+}
+
+// Configure the jCenter and Google repositories
+allprojects {
+	repositories {
+		jcenter()
+		google()
+	}
+}
+
+// Create a 'clean' task to delete the build directory
+task clean(type: Delete) {
+	delete rootProject.buildDir
+}
+
+// Import some Java NIO and Apache classes
+import java.nio.file.Files
+import org.apache.tools.ant.taskdefs.condition.Os
+
+// Hide the ".gradle" directory under Windows
+if (Os.isFamily(Os.FAMILY_WINDOWS)) {
+	task configured {
+		final paths = [".gradle", ".idea"]
+		paths.each {
+			final path = file(it).toPath()
+			final hidden = Files.getAttribute(path, "dos:hidden")
+			if (hidden == false) Files.setAttribute(path, "dos:hidden", true)
+		}
+	}
+}
