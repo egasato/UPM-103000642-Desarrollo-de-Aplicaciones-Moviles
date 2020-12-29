@@ -41,6 +41,9 @@ class URandomSpi : SecureRandomSpi() {
 
 	}
 
+	/** Tracks if the engine has been seeded. */
+	private var seeded = false
+
 	/**
 	 * Sets the seed of the generator.
 	 *
@@ -53,6 +56,8 @@ class URandomSpi : SecureRandomSpi() {
 			stream.flush()
 		} catch (e: IOException) {
 			Log.w(NAME, "Failed to set the seed of $urandomFile", e)
+		} finally {
+			seeded = true
 		}
 	}
 
@@ -62,6 +67,7 @@ class URandomSpi : SecureRandomSpi() {
 	 * @param bytes The array where the bytes will be written into.
 	 */
 	override fun engineNextBytes(bytes: ByteArray?) {
+		if (!seeded) engineSetSeed(PRNG.generateSeed())
 		try {
 			val stream = synchronized(lock) { urandomInput }
 			synchronized(stream) { stream.readFully(bytes) }
