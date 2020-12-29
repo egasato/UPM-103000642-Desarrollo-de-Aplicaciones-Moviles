@@ -2,6 +2,10 @@
 <resources>
 	<!-- Metadata -->
 
+	<!-- Manifest -->
+	<string name="app_name">PokéDEX</string>
+	<string name="app_description">Search and find information about any Pokémon.</string>
+
 	<!-- Main activity -->
 	<string name="description_splash_fg">Closed Pokédex</string>
 	<string name="description_splash_bg">Background pattern filled with the starter Pokémons (Charmander, Squirtle and Bulbasaur)</string>
