@@ -1,0 +1,10 @@
+// Configure where are the plugins retrieved from
+pluginManagement {
+	repositories {
+		gradlePluginPortal()
+		jcenter()
+	}
+}
+
+// Set the project name
+rootProject.name = "PokéDEX"
