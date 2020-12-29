@@ -1,4 +1,11 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
+	<!-- Splash screen theme -->
+	<style name="Theme.PokeDEX.NoActionBar" parent="Theme.MaterialComponents.NoActionBar" />
+	<style name="Base.Theme.PokeDEX.Splash" parent="Theme.PokeDEX.NoActionBar">
+		<item name="android:windowBackground">@drawable/splash_background</item>
+	</style>
+	<style name="Theme.PokeDEX.Splash" parent="Base.Theme.PokeDEX.Splash" />
+
 	<!-- The PokéDEX theme -->
 	<style name="Theme.PokeDEX" parent="Theme.MaterialComponents.Light.DarkActionBar">
 		<!-- Primary brand -->
