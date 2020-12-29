@@ -1,0 +1,17 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+	<!-- The PokéDEX theme -->
+	<style name="Theme.PokeDEX" parent="Theme.MaterialComponents.Light.DarkActionBar">
+		<!-- Primary brand -->
+		<item name="colorPrimary">@color/red_500</item>
+		<item name="colorPrimaryDark">@color/red_900</item>
+		<item name="colorPrimaryVariant">@color/red_700</item>
+		<item name="colorOnPrimary">@color/red_text_light</item>
+		<!-- Secondary brand -->
+		<item name="colorSecondary">@color/light_yellow_500</item>
+		<item name="colorSecondaryVariant">@color/light_yellow_700</item>
+		<item name="colorOnSecondary">@color/light_yellow_text_dark</item>
+		<!-- Bars -->
+		<item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+		<item name="android:navigationBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+	</style>
+</resources>
