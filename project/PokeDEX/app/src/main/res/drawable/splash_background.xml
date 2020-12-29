@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?><!-- The "opacity" attribute is needed to avoid -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android"
+			android:opacity="opaque">
+	<!-- The background color -->
+	<item android:drawable="@color/pokemon_pattern_starters_background" />
+	<!-- The background pattern -->
+	<item android:drawable="@drawable/pokemon_pattern_starters_bmpdrw" />
+	<!-- The Pokédex -->
+	<item android:gravity="center" android:drawable="@drawable/pokedex_closed_padded_bmp" />
+</layer-list>
