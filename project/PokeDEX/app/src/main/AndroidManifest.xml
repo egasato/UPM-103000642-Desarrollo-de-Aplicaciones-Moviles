@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+		  xmlns:tools="http://schemas.android.com/tools"
+		  package="org.egasato.pokedex"
+		  android:installLocation="preferExternal"
+		  android:targetSandboxVersion="2"
+		  tools:targetApi="o">
+
+	<!-- General configuration of the application -->
+	<application
+		android:allowBackup="true"
+		android:allowClearUserData="true"
+		android:allowNativeHeapPointerTagging="true"
+		android:allowTaskReparenting="true"
+		android:backupInForeground="false"
+		android:description="@string/app_description"
+		android:directBootAware="false"
+		android:enabled="true"
+		android:extractNativeLibs="true"
+		android:fullBackupContent="@xml/backup_rules"
+		android:fullBackupOnly="true"
+		android:gwpAsanMode="always"
+		android:hardwareAccelerated="true"
+		android:hasCode="true"
+		android:hasFragileUserData="false"
+		android:icon="@mipmap/ic_launcher"
+		android:isGame="false"
+		android:killAfterRestore="true"
+		android:label="@string/app_name"
+		android:largeHeap="true"
+		android:logo="@drawable/pokedex_closed_padded"
+		android:networkSecurityConfig="@xml/network_security"
+		android:persistent="false"
+		android:requestLegacyExternalStorage="false"
+		android:requiredAccountType="org.egasato.pokedex"
+		android:resizeableActivity="true"
+		android:restoreAnyVersion="false"
+		android:restrictedAccountType="null"
+		android:roundIcon="@mipmap/ic_launcher_round"
+		android:supportsRtl="true"
+		android:testOnly="true"
+		android:theme="@style/Theme.PokeDEX"
+		android:uiOptions="none"
+		android:usesCleartextTraffic="false"
+		android:vmSafeMode="false"
+		tools:targetApi="30">
+
+		<!-- Set the Android Backup Service API key -->
+		<meta-data android:name="com.google.android.backup.api_key" android:value="AEdPqrEAAAAIZYro5r36Kn1vZy-kh1cvAReW4SElZtcyZZYzzg" />
+
+	</application>
+
+</manifest>
