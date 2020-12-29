@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Original source used as inspiration: "pokedex-animation" by "mauroWernly" at "github.com" -->
+<!-- https://github.com/mauroWernly/pokedex-animation/blob/master/img/closed-pokedex.svg -->
+<!-- Original size: 154x204 -->
+<svg width="512" height="512"
+     viewBox="0 0 1152 1152"
+     shape-rendering="geometricPrecision"
+     xmlns="http://www.w3.org/2000/svg">
+	<!-- Global layer -->
+	<g transform="translate(382.7450997,320.0000022) scale(2.5098039)">
+		<!-- Layer 0: Backgrounds -->
+		<g id="layer-0">
+			<!-- Dark background -->
+			<rect id="pokedex-out-rect"
+			      x="0" y="0" width="154" height="204" rx="13.5"
+			      fill="#4D1717" stroke="none"
+			      stroke-linecap="round" stroke-linejoin="round" />
+			<!-- Bright background -->
+			<rect id="pokedex-in-rect"
+			      x="7" y="7" width="140" height="190" rx="10"
+			      fill="#EE3E37" stroke="none"
+			      stroke-linecap="round" stroke-linejoin="round" />
+		</g>
+		<!-- Layer 1: Details -->
+		<g>
+			<!-- Layer 1.1: Speaker feedback -->
+			<g>
+				<!-- Outer shadow -->
+				<circle id="speaker-feedback-shadow-out-circle"
+					cx="33" cy="31" r="14.5"
+					fill="#4D1717" stroke="none"
+					opacity="0.5" />
+				<!-- Outer shine -->
+				<circle id="speaker-feedback-shine-out-circle"
+					cx="33" cy="31" r="11"
+					fill="white" stroke="none"
+					opacity="0.5" />
+				<!-- Border and glass -->
+				<circle id="speaker-feedback-circle"
+					cx="33" cy="31" r="9.5"
+					fill="#5FC7FB" stroke="#17264D"
+					stroke-width="1" />
+				<!-- Glass reflection -->
+				<circle id="speaker-feedback-reflection"
+					cx="31" cy="30" r="3"
+					fill="#AFE3FD" stroke="none" />
+			</g>
+			<!-- Layer 1.2: RYG LED -->
+			<g>
+				<!-- Red circle -->
+				<circle id="led-red"
+					cx="110" cy="18" r="4"
+					fill="#CB0000" stroke="#4D1717"
+					stroke-width="2" />
+				<!-- Yellow circle -->
+				<circle id="led-yellow"
+					cx="123" cy="18" r="4"
+					fill="#F5A623" stroke="#4D1717"
+					stroke-width="2" />
+				<!-- Green circle -->
+				<circle id="led-green"
+					cx="136" cy="18" r="4"
+					fill="#77A946" stroke="#4D1717"
+					stroke-width="2" />
+			</g>
+			<!-- Layer 1.3: Play and speaker -->
+			<g>
+				<!-- Play button -->
+				<path id="play-button"
+				      fill="#FEC356" stroke="#4D1717"
+				      stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"
+				      d="M 34.6363,126.785
+					 C 36.6531,125.282 36.6471,122.259 34.6242,120.763
+					 L 25.7024 114.168
+					 C 23.2243,112.336 19.7171,114.11 19.7233,117.191
+					 L 19.7499 130.417
+					 C 19.7561,133.499 23.2703,135.258 25.7411,133.416
+					 L 34.6363 126.785
+					 Z" />
+				<!-- Speaker slit -->
+				<rect id="speaker-slit"
+				      x="43.25" y="169.25" width="53.5" height="6.5" rx="3.25"
+				      fill="#B22E29" stroke="#4D1717"
+				      stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" />
+			</g>
+		</g>
+		<!-- Layer 2: Lines -->
+		<g>
+			<!-- Middle line -->
+			<g>
+				<!-- Shiny horizontal line-->
+				<path id="hr-light"
+				      fill="none" stroke="#F37873"
+				      stroke-width="7"
+				      d="M 7,64
+					 H 91
+					 L 118,36.5
+					 H 130" />
+				<!-- Dark horizontal line -->
+				<path id="hr-dark"
+				      fill="none" stroke="#4D1717"
+				      stroke-width="7"
+				      d="M 6.9,60.5
+					 H 90
+					 L 117,33
+					 H 150" />
+			</g>
+			<!-- Hinges -->
+			<g>
+				<!-- Vertical line -->
+				<line id="vt"
+				      x1="131" y1="33"
+				      x2="131" y2="200"
+				      fill="none" stroke="#4D1717"
+				      stroke-width="7" />
+				<!-- Top hinge -->
+				<g>
+					<!-- Top line -->
+					<line id="top-hinge-top"
+					      x1="134.4" y1="48"
+					      x2="147.1" y2="48"
+					      fill="none" stroke="#4D1717"
+					      stroke-width="3.5" />
+					<!-- Bottom line -->
+					<line id="top-hinge-bottom"
+					      x1="134.4" y1="56.5"
+					      x2="147.1" y2="56.5"
+					      fill="none" stroke="#4D1717"
+					      stroke-width="3.5" />
+				</g>
+				<!-- Bottom hinge -->
+				<g>
+					<!-- Top line -->
+					<line id="bottom-hinge-top"
+					      x1="134.4" y1="173"
+					      x2="147.1" y2="173"
+					      fill="none" stroke="#4D1717"
+					      stroke-width="3.5" />
+					<!-- Bottom line -->
+					<line id="bottom-hinge-bottom"
+					      x1="134.4" y1="181.5"
+					      x2="147.1" y2="181.5"
+					      fill="none" stroke="#4D1717"
+					      stroke-width="3.5" />
+				</g>
+			</g>
+		</g>
+		<!-- Layer 3: Shadows -->
+		<g>
+			<!-- Top shadow -->
+			<line id="top-shadow"
+			      x1="134.5" y1="41.4"
+			      x2="147.0" y2="41.4"
+			      fill="none" stroke="#A62B26"
+			      stroke-width="9.8" />
+			<!-- Bottom shadow -->
+			<path id="bottom-shadow"
+			      fill="#A62B26" stroke="none"
+			      d="M 134.5,183.2
+				 H 147
+				 V 187
+				 A 10,10 0,0,1 137,197
+				 H 134.5
+				 Z" />
+		</g>
+	</g>
+</svg>
