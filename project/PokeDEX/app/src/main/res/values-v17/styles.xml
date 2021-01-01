@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<!-- The style of the PokeDEX title -->
+	<style name="TextAppearance.PokeDEX.Widget.ActionBar.Title" parent="Base.TextAppearance.PokeDEX.Widget.ActionBar.Title">
+		<item name="android:textAlignment">center</item>
+	</style>
+</resources>
