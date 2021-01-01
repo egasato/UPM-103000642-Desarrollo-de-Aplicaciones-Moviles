@@ -6,6 +6,18 @@
 	</style>
 	<style name="Theme.PokeDEX.Splash" parent="Base.Theme.PokeDEX.Splash" />
 
+	<!-- The style of the ActionBar -->
+	<style name="ThemeOverlay.PokeDEX.ActionBar" parent="ThemeOverlay.MaterialComponents.ActionBar">
+		<item name="android:background">?attr/colorPrimary</item>
+		<item name="android:layout_width">match_parent</item>
+		<item name="android:layout_height">wrap_content</item>
+		<item name="android:minHeight">?attr/actionBarSize</item>
+		<item name="android:textSize">20sp</item>
+		<item name="elevation">4dp</item>
+		<item name="contentInsetStart">0dp</item>
+		<item name="popupTheme">@style/ThemeOverlay.AppCompat.Dark</item>
+	</style>
+
 	<!-- The PokéDEX theme -->
 	<style name="Theme.PokeDEX" parent="Theme.MaterialComponents.Light.DarkActionBar">
 		<!-- Primary brand -->
