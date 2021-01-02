@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+												   xmlns:app="http://schemas.android.com/apk/res-auto"
+												   android:layout_width="match_parent"
+												   android:layout_height="match_parent">
+
+	<!-- The input form -->
+	<com.google.android.material.card.MaterialCardView
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_margin="20dp"
+		android:orientation="vertical"
+		app:cardElevation="20dp"
+		app:layout_constraintBottom_toBottomOf="parent"
+		app:layout_constraintTop_toTopOf="parent">
+
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:baselineAligned="false"
+			android:divider="@drawable/divider_empty"
+			android:orientation="horizontal"
+			android:padding="20dp"
+			android:showDividers="middle">
+
+			<!-- The username input -->
+			<com.google.android.material.textfield.TextInputLayout
+				android:id="@+id/username_container"
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:layout_weight="1">
+				<com.google.android.material.textfield.TextInputEditText
+					android:id="@+id/username"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:autofillHints="username"
+					android:hint="@string/hint_username"
+					android:inputType="textAutoComplete"
+					android:maxLines="0" />
+			</com.google.android.material.textfield.TextInputLayout>
+
+			<!-- The password input -->
+			<com.google.android.material.textfield.TextInputLayout
+				android:id="@+id/password_container"
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:layout_weight="1">
+				<com.google.android.material.textfield.TextInputEditText
+					android:id="@+id/password"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:autofillHints="password"
+					android:hint="@string/hint_password"
+					android:inputType="textPassword"
+					android:maxLines="0" />
+			</com.google.android.material.textfield.TextInputLayout>
+		</LinearLayout>
+	</com.google.android.material.card.MaterialCardView>
+</androidx.constraintlayout.widget.ConstraintLayout>
