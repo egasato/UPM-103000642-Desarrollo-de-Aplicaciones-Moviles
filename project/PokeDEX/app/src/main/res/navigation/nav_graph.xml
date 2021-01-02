@@ -16,6 +16,7 @@
 	<!-- The login fragment -->
 	<fragment
 		android:id="@+id/login_fragment"
+		android:name="org.egasato.pokedex.app.PokeLoginFragment"
 		android:label="@string/label_login"
 		tools:layout="@layout/login_fragment">
 		<action
