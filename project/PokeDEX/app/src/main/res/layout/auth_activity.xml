@@ -58,6 +58,7 @@
 		<!-- The action button -->
 		<com.google.android.material.button.MaterialButton
 			android:id="@+id/action"
+			android:onClick="onActionClick"
 			style="@style/Widget.PokeDEX.Button.Action" />
 
 		<!-- The horizontal separator -->
@@ -100,6 +101,7 @@
 		<!-- The navigation button -->
 		<com.google.android.material.button.MaterialButton
 			android:id="@+id/nav"
+			android:onClick="onNavClick"
 			style="@style/Widget.PokeDEX.Button.Navigation" />
 	</LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

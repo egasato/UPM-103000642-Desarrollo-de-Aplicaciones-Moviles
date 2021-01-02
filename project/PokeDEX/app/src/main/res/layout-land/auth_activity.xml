@@ -60,7 +60,8 @@
 			android:id="@+id/action"
 			style="@style/Widget.PokeDEX.Button.Action"
 			android:layout_width="0dp"
-			android:layout_weight="1" />
+			android:layout_weight="1"
+			android:onClick="onActionClick" />
 
 		<!-- The text -->
 		<TextView
@@ -78,6 +79,7 @@
 			android:id="@+id/nav"
 			style="@style/Widget.PokeDEX.Button.Navigation"
 			android:layout_width="0dp"
-			android:layout_weight="1" />
+			android:layout_weight="1"
+			android:onClick="onNavClick" />
 	</LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
