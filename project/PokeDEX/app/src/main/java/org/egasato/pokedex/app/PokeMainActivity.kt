@@ -13,7 +13,7 @@ import org.egasato.pokedex.R
  * @see AppCompatActivity
  * @author Esaú García Sánchez-Torija
  */
-class PokeMainActivity : AppCompatActivity() {
+class PokeMainActivity : AppCompatActivity(), PokeApplication.Aware {
 
 	/**
 	 * Starts the authentication activity right away.
@@ -23,10 +23,13 @@ class PokeMainActivity : AppCompatActivity() {
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
 		setContentView(R.layout.splash_background)
-		val intent = Intent(this, PokeAuthActivity::class.java).apply {
-			addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
+		if (app.keystore.isSupported && !app.keystore.keyPairExists()) app.keystore.generateKeyPair()
+		val intent = if (app.preferences.token.isBlank()) {
+			Intent(this, PokeAuthActivity::class.java)
+		} else {
+			Intent(this, PokeListActivity::class.java)
 		}
-		startActivity(intent)
+		startActivity(intent.apply { addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION) })
 		finish()
 	}
 
