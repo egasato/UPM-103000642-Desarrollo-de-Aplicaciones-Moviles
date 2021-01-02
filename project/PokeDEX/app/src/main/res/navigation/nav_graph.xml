@@ -34,6 +34,7 @@
 	<!-- The register fragment -->
 	<fragment
 		android:id="@+id/signup_fragment"
+		android:name="org.egasato.pokedex.app.PokeSignupFragment"
 		android:label="@string/label_signup"
 		tools:layout="@layout/signup_fragment">
 		<action
