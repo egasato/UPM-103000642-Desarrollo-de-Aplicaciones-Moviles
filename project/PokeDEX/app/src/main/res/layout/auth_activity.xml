@@ -30,7 +30,8 @@
 		app:layout_constraintBottom_toTopOf="@id/buttons"
 		app:layout_constraintLeft_toLeftOf="parent"
 		app:layout_constraintRight_toRightOf="parent"
-		app:layout_constraintTop_toTopOf="parent" />
+		app:layout_constraintTop_toTopOf="parent"
+		app:navGraph="@navigation/nav_graph" />
 
 	<!-- The shadow -->
 	<View
