@@ -12,4 +12,20 @@
 		<item name="strokeWidth">@dimen/pokedex_title</item>
 	</style>
 	<style name="TextAppearance.PokeDEX.Widget.ActionBar.Title" parent="Base.TextAppearance.PokeDEX.Widget.ActionBar.Title" />
+
+	<!-- Buttons -->
+	<style name="Widget.PokeDEX.Button.Action" parent="Widget.MaterialComponents.Button">
+		<item name="android:layout_height">wrap_content</item>
+		<item name="android:layout_width">match_parent</item>
+		<item name="android:text">@string/action_login</item>
+		<item name="android:textColor">@android:color/white</item>
+		<item name="backgroundTint">?attr/colorPrimary</item>
+	</style>
+	<style name="Widget.PokeDEX.Button.Navigation" parent="Widget.MaterialComponents.Button.TextButton">
+		<item name="android:layout_height">wrap_content</item>
+		<item name="android:layout_width">match_parent</item>
+		<item name="android:text">@string/nav_signup</item>
+		<item name="android:textColor">@color/brown_700</item>
+		<item name="backgroundTint">@color/light_brown_500</item>
+	</style>
 </resources>

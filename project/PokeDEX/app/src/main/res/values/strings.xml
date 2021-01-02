@@ -9,4 +9,27 @@
 	<!-- Main activity -->
 	<string name="description_splash_fg">Closed Pokédex</string>
 	<string name="description_splash_bg">Background pattern filled with the starter Pokémons (Charmander, Squirtle and Bulbasaur)</string>
+
+	<!-- UI -->
+
+	<!-- Auth -->
+	<string name="alternative">or</string>
+
+	<!-- Login -->
+	<string name="hint_username">Username</string>
+	<string name="hint_password">Password</string>
+	<string name="action_login">Login</string>
+	<string name="nav_login">I don\'t have an account</string>
+	<string name="err_username">The username MUST be composed of 1 or more alphanumeric characters</string>
+	<string name="err_password">The password MUST be composed of 4 or more characters</string>
+	<string name="err_repeat">The passwords MUST coincide</string>
+	<string name="wait_login">Logging in</string>
+
+	<!-- Sign up -->
+	<string name="hint_email">Email</string>
+	<string name="hint_repeat_password">Repeat password</string>
+	<string name="action_signup">Sign up</string>
+	<string name="nav_signup">I have an account</string>
+	<string name="err_email">The email MUST be valid</string>
+	<string name="wait_signup">Signing up</string>
 </resources>
