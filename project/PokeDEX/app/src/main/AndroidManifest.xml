@@ -6,6 +6,9 @@
 		  android:targetSandboxVersion="2"
 		  tools:targetApi="o">
 
+	<!-- Needed to perform HTTPS requests -->
+	<uses-permission android:name="android.permission.INTERNET" />
+
 	<!-- General configuration of the application -->
 	<application
 		android:name=".app.PokeApplication"
