@@ -56,12 +56,16 @@
 		app:layout_constraintRight_toRightOf="parent">
 
 		<!-- The action button -->
-		<com.google.android.material.button.MaterialButton
-			android:id="@+id/action"
-			style="@style/Widget.PokeDEX.Button.Action"
+		<LinearLayout
 			android:layout_width="0dp"
-			android:layout_weight="1"
-			android:onClick="onActionClick" />
+			android:layout_height="wrap_content"
+			android:gravity="center"
+			android:layout_weight="1">
+			<br.com.simplepass.loadingbutton.customViews.CircularProgressButton
+				android:id="@+id/action"
+				style="@style/Widget.PokeDEX.Button.Action"
+				android:onClick="onActionClick" />
+		</LinearLayout>
 
 		<!-- The text -->
 		<TextView

@@ -115,4 +115,5 @@ dependencies {
 	implementation 'com.google.code.gson:gson:2.8.6'                          // JSON parser
 	implementation 'io.reactivex.rxjava3:rxkotlin:3.0.1'                      // (Reactive programming) ReactiveX for Java (Kotlin)
 	implementation 'com.amitshekhar.android:android-networking:1.0.2'         // Networking library that works (Android M removed HttpClient)
+	implementation 'br.com.simplepass:loading-button-android:2.2.0'           // Morphing button
 }
