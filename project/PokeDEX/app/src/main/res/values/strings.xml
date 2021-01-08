@@ -29,6 +29,10 @@
 	<string name="err_password">The password MUST be composed of 4 or more characters</string>
 	<string name="err_repeat">The passwords MUST coincide</string>
 	<string name="wait_login">Logging in</string>
+	<string name="err_parse">The response could not be parsed (understood)</string>
+	<string name="err_invalid">The request could not be parsed by the server (understood)</string>
+	<string name="ok_login">The server accepted the login request</string>
+	<string name="err_login">Username and password pair could not be found</string>
 
 	<!-- Sign up -->
 	<string name="hint_email">Email</string>
@@ -37,4 +41,6 @@
 	<string name="nav_signup">I have an account</string>
 	<string name="err_email">The email MUST be valid</string>
 	<string name="wait_signup">Signing up</string>
+	<string name="ok_signup">The server accepted the sign-up request</string>
+	<string name="err_signup">The username already exists</string>
 </resources>
