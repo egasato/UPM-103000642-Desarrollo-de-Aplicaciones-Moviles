@@ -43,4 +43,8 @@
 	<string name="wait_signup">Signing up</string>
 	<string name="ok_signup">The server accepted the sign-up request</string>
 	<string name="err_signup">The username already exists</string>
+
+	<!-- List -->
+	<string name="description_icon">The Pokémon icon</string>
+
 </resources>
