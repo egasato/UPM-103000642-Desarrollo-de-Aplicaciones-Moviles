@@ -23,7 +23,7 @@ class PokePreferences(context: Context) : PokeApplication.Aware {
 	/** The shared preferences. */
 	private val preferences = context.getSharedPreferences(BuildConfig.APPLICATION_ID, MODE_PRIVATE).let {
 		if (!app.keystore.isSupported) it
-		else SecurePreferences(context, it, app.keystore, setOf())
+		else SecurePreferences(context, it, app.keystore, setOf("token"))
 	}
 
 	/** The username. */
