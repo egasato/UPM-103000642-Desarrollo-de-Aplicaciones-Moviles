@@ -1,14 +1,26 @@
 package org.egasato.pokedex.app
 
+import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.View
 import android.widget.EditText
-import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.res.ResourcesCompat
+import androidx.core.graphics.drawable.toBitmap
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
+import br.com.simplepass.loadingbutton.customViews.CircularProgressButton
+import com.androidnetworking.AndroidNetworking
+import com.google.android.material.button.MaterialButton
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import org.egasato.pokedex.R
 import org.egasato.pokedex.lib.util.Pair
 import org.egasato.pokedex.lib.util.Single
@@ -16,6 +28,7 @@ import org.egasato.pokedex.lib.view.animation.CompatValueAnimator
 import org.egasato.pokedex.lib.widget.TileImageView
 import org.egasato.pokedex.lifecycle.PokeAuthViewModel
 import org.egasato.pokedex.log.PokeLogger
+import org.egasato.pokedex.repo.AuthRepository
 import org.egasato.pokedex.view.animation.MovementAnimator
 import org.egasato.pokedex.view.animation.OffsetAnimator
 import org.egasato.pokedex.view.animation.ScaleAnimator
@@ -52,7 +65,7 @@ private val REGEX_USERNAME = Regex("[a-zA-Z0-9]+")
 private val REGEX_PASSWORD = Regex(".{4,}")
 
 /** The expression that validates the email. */
-private val REGEX_EMAIL = Regex("(?:[a-z0-9!#\$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#\$%&'*+/=?^_`{|}~-]+)*|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])")
+private val REGEX_EMAIL = Regex("(?:[a-z0-9!#\$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#\$%&'*+/=?^_`{|}~-]+)*|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)])")
 
 /**
  * The authentication [activity][AppCompatActivity].
@@ -95,6 +108,24 @@ class PokeAuthActivity : AppCompatActivity(), PokeApplication.Aware {
 	/** The navigation controller. */
 	private lateinit var controller: NavController
 
+	/** Done drawable. */
+	private lateinit var doneDrw: Drawable
+
+	/** Done bitmap. */
+	private lateinit var doneBmp: Bitmap
+
+	/** Done background color. */
+	private var doneCol: Int = 0
+
+	/** Error drawable. */
+	private lateinit var errDrw: Drawable
+
+	/** Error bitmap. */
+	private lateinit var errBmp: Bitmap
+
+	/** Error background color. */
+	private var errCol: Int = 0
+
 	/**
 	 * Loads the UI and creates the view model.
 	 *
@@ -124,19 +155,30 @@ class PokeAuthActivity : AppCompatActivity(), PokeApplication.Aware {
 		initViewModelOrUpdateActivity()
 
 		// Update the buttons based on the active fragment
-		model.fragment.observe(this, {
+		model.fragment.observe(this) {
 			when (it) {
 				R.id.login_fragment -> {
-					findViewById<TextView>(R.id.action).setText(R.string.action_login)
-					findViewById<TextView>(R.id.nav).setText(R.string.nav_login)
+					findViewById<CircularProgressButton>(R.id.action).setText(R.string.action_login)
+					findViewById<MaterialButton>(R.id.nav).setText(R.string.nav_login)
 				}
 				R.id.signup_fragment -> {
-					findViewById<TextView>(R.id.action).setText(R.string.action_signup)
-					findViewById<TextView>(R.id.nav).setText(R.string.nav_signup)
+					findViewById<CircularProgressButton>(R.id.action).setText(R.string.action_signup)
+					findViewById<MaterialButton>(R.id.nav).setText(R.string.nav_signup)
 				}
 				else -> throw IllegalStateException("Application state is wrong, I don't know what to do")
 			}
-		})
+		}
+
+		// Initialize networking
+		AndroidNetworking.initialize(applicationContext)
+
+		// Initialize icons
+		doneDrw = ResourcesCompat.getDrawable(resources, R.drawable.done, null)!!
+		doneBmp = doneDrw.toBitmap(24, 24, null)
+		doneCol = ResourcesCompat.getColor(resources, R.color.green_900, null)
+		errDrw = ResourcesCompat.getDrawable(resources, R.drawable.clear, null)!!
+		errBmp = errDrw.toBitmap(24, 24, null)
+		errCol = ResourcesCompat.getColor(resources, R.color.red_900, null)
 	}
 
 	/**
@@ -148,42 +190,90 @@ class PokeAuthActivity : AppCompatActivity(), PokeApplication.Aware {
 	 */
 	@Suppress("UNUSED_PARAMETER")
 	fun onActionClick(view: View) {
-		var focused = 0
-		val validUsername = model.username.value?.matches(REGEX_USERNAME)
-		val validPassword = model.password.value?.matches(REGEX_PASSWORD)
-		if (validUsername != true) {
-			model.state.username.value = getString(R.string.err_username)
-			findViewById<EditText>(R.id.username).requestFocus()
-			focused = 1
-		}
-		if (validPassword != true) {
-			model.state.password.value = getString(R.string.err_password)
-			if (focused > 3 || focused == 0) {
-				findViewById<EditText>(R.id.password).requestFocus()
-				focused = 3
-			}
-		}
-		if (controller.currentDestination!!.id == R.id.signup_fragment) {
-			val validEmail = model.email.value?.matches(REGEX_EMAIL)
-			val validRepeat = model.repeat.value?.matches(REGEX_PASSWORD)
-			if (validEmail != true) {
-				model.state.email.value = getString(R.string.err_email)
-				if (focused > 2 || focused == 0) {
-					findViewById<EditText>(R.id.email).requestFocus()
-					focused = 2
+		val btn = view as CircularProgressButton
+		btn.isEnabled = false
+		if (checkData()) {
+			app.preferences.username = model.username.value.toString()
+			btn.startAnimation()
+			val toast = Toast.makeText(this, "", Toast.LENGTH_SHORT)
+			when (controller.currentDestination!!.id) {
+				R.id.login_fragment -> lifecycleScope.launch(Dispatchers.IO) {
+					val result = login()
+					when (result?.code) {
+						0 -> {
+							logger.event { "The token is: ${result.token}" }
+							app.preferences.token = result.token
+							runOnUiThread {
+								toast.setText(R.string.ok_login)
+								toast.show()
+								switchToList()
+								btn.doneLoadingAnimation(doneCol, doneBmp)
+								btn.isEnabled = true
+							}
+						}
+						-1 -> runOnUiThread {
+							toast.setText(R.string.err_invalid)
+							toast.show()
+							btn.doneLoadingAnimation(errCol, errBmp)
+							btn.isEnabled = true
+						}
+						-2 -> runOnUiThread {
+							toast.setText(R.string.err_login)
+							toast.show()
+							btn.doneLoadingAnimation(errCol, errBmp)
+							btn.isEnabled = true
+						}
+						else -> runOnUiThread {
+							toast.setText(R.string.err_parse)
+							toast.show()
+							btn.doneLoadingAnimation(errCol, errBmp)
+							btn.isEnabled = true
+						}
+					}
+					delay(1_000)
+					runOnUiThread {
+						btn.revertAnimation()
+					}
 				}
-			}
-			if (validRepeat != true) {
-				model.state.repeat.value = getString(R.string.err_password)
-				if (focused > 4 || focused == 0) {
-					findViewById<EditText>(R.id.repeat_password).requestFocus()
+				R.id.signup_fragment -> lifecycleScope.launch(Dispatchers.IO) {
+					val result = signup()
+					when (result?.code) {
+						0 -> runOnUiThread {
+							toast.setText(R.string.ok_signup)
+							toast.show()
+							switchToLogin()
+							btn.doneLoadingAnimation(doneCol, doneBmp)
+							btn.isEnabled = true
+						}
+						-1 -> runOnUiThread {
+							toast.setText(R.string.err_invalid)
+							toast.show()
+							btn.doneLoadingAnimation(errCol, errBmp)
+							btn.isEnabled = true
+						}
+						-2 -> runOnUiThread {
+							toast.setText(R.string.err_signup)
+							toast.show()
+							switchToLogin()
+							btn.doneLoadingAnimation(doneCol, doneBmp)
+							btn.isEnabled = true
+						}
+						else -> runOnUiThread {
+							toast.setText(R.string.err_parse)
+							toast.show()
+							btn.doneLoadingAnimation(errCol, errBmp)
+							btn.isEnabled = true
+						}
+					}
+					delay(1_000)
+					runOnUiThread {
+						btn.revertAnimation()
+					}
 				}
-			} else if (!model.password.value!!.toString().contentEquals(model.repeat.value!!)) {
-				model.state.repeat.value = getString(R.string.err_repeat)
-				if (focused > 4 || focused == 0) {
-					findViewById<EditText>(R.id.repeat_password).requestFocus()
-				}
+				else -> throw IllegalStateException("Application state is wrong, I don't know what to do")
 			}
+		} else {
+			btn.isEnabled = true
 		}
 	}
 
@@ -197,16 +287,29 @@ class PokeAuthActivity : AppCompatActivity(), PokeApplication.Aware {
 	@Suppress("UNUSED_PARAMETER")
 	fun onNavClick(view: View) {
 		when (controller.currentDestination!!.id) {
-			R.id.login_fragment -> {
-				val action = PokeLoginFragmentDirections.switchToSignup()
-				controller.navigate(action)
-			}
-			R.id.signup_fragment -> {
-				val action = PokeSignupFragmentDirections.switchToLogin()
-				controller.navigate(action)
-			}
+			R.id.login_fragment -> switchToSignup()
+			R.id.signup_fragment -> switchToLogin()
 			else -> throw IllegalStateException("Application state is wrong, I don't know what to do")
 		}
+	}
+
+	/** Switches to the sign-up fragment. */
+	private fun switchToSignup() {
+		val action = PokeLoginFragmentDirections.switchToSignup()
+		controller.navigate(action)
+	}
+
+	/** Switches to the login fragment. */
+	private fun switchToLogin() {
+		val action = PokeSignupFragmentDirections.switchToLogin()
+		controller.navigate(action)
+	}
+
+	/** Switches to the list activity. */
+	private fun switchToList() {
+		val intent = Intent(this, PokeListActivity::class.java)
+		startActivity(intent)
+		finish()
 	}
 
 	/** Initializes the view model or updates the activity state with it.  */
@@ -286,6 +389,81 @@ class PokeAuthActivity : AppCompatActivity(), PokeApplication.Aware {
 				background.invalidate()
 			}
 		}
+	}
+
+	/**
+	 * Checks the input data.
+	 *
+	 * @return Whether the data is valid or not.
+	 */
+	private fun checkData(): Boolean {
+		var focused = 0
+		val validUsername = model.username.value?.matches(REGEX_USERNAME)
+		val validPassword = model.password.value?.matches(REGEX_PASSWORD)
+		if (validUsername != true) {
+			model.state.username.value = getString(R.string.err_username)
+			findViewById<EditText>(R.id.username).requestFocus()
+			focused = 1
+		}
+		if (validPassword != true) {
+			model.state.password.value = getString(R.string.err_password)
+			if (focused > 3 || focused == 0) {
+				findViewById<EditText>(R.id.password).requestFocus()
+				focused = 3
+			}
+		}
+		if (controller.currentDestination!!.id == R.id.signup_fragment) {
+			val validEmail = model.email.value?.matches(REGEX_EMAIL)
+			val validRepeat = model.repeat.value?.matches(REGEX_PASSWORD)
+			if (validEmail != true) {
+				model.state.email.value = getString(R.string.err_email)
+				if (focused > 2 || focused == 0) {
+					findViewById<EditText>(R.id.email).requestFocus()
+					focused = 2
+				}
+			}
+			if (validRepeat != true) {
+				model.state.repeat.value = getString(R.string.err_password)
+				if (focused > 4 || focused == 0) {
+					findViewById<EditText>(R.id.repeat_password).requestFocus()
+				}
+			} else if (!model.password.value!!.toString().contentEquals(model.repeat.value!!)) {
+				model.state.repeat.value = getString(R.string.err_repeat)
+				if (focused > 4 || focused == 0) {
+					findViewById<EditText>(R.id.repeat_password).requestFocus()
+				}
+			}
+		}
+		return focused == 0
+	}
+
+	/**
+	 * Signs up with the username, password and email stored in the view model.
+	 *
+	 * @return Whether the sign up succeeded or not.
+	 */
+	private fun signup() = with (model) {
+		val result = AuthRepository.signup(
+			username = username.value!!.toString(),
+			password = password.value!!.toString(),
+			email = email.value!!.toString()
+		)
+		logger.event { "Server message is: ${result?.message}" }
+		result
+	}
+
+	/**
+	 * Logs in with the username and password stored in the view model.
+	 *
+	 * @return Whether the login succeeded or not.
+	 */
+	private fun login() = with (model) {
+		val result = AuthRepository.login(
+			username = username.value!!.toString(),
+			password = password.value!!.toString()
+		)
+		logger.event { "Server message is: ${result?.message}" }
+		result
 	}
 
 	/** Starts the animators. */
