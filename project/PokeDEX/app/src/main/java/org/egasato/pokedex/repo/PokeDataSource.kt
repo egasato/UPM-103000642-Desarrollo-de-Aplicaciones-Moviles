@@ -39,7 +39,14 @@ object PokeDataSource {
 		val res = req.executeForString()
 		return if (res.isSuccess) {
 			logger.event("Parsing response as NetworkPokeListResponse")
-			gson.fromJson(res.result as String, NetworkPokeListResponse::class.java)
+			val tmp = gson.fromJson(res.result as String, NetworkPokeListResponse::class.java)
+			NetworkPokeListResponse(
+				count = tmp.count,
+				next = tmp.next,
+				previous = tmp.previous,
+				offset = request.offset,
+				results = tmp.results
+			)
 		} else {
 			logger.event("Parsing response failed")
 			null
