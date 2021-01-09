@@ -1,5 +1,13 @@
 package org.egasato.pokedex.model.dm
 
+import org.egasato.pokedex.log.PokeLogger
+
+/** The Kotlin logger object. */
+private val logger = PokeLogger.logger {}
+
+/** The complete name of the class. */
+private val CLASS = PokeListResponse::class.java.canonicalName
+
 /**
  * The response of a Pokémon list query.
  *
@@ -14,7 +22,15 @@ class PokeListResponse(
 
 	/** The size of the list. */
 	override val size: Int
-		get() = list.size
+		get() {
+			logger.getter("Accessing the member \"size\"")
+			return list.size
+		}
+
+	// Logs the object creation
+	init {
+		logger.cycle { "Creating an instance of $CLASS" }
+	}
 
 	/**
 	 * Obtains a Pokémon from the list.

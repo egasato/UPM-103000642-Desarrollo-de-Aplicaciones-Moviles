@@ -3,7 +3,12 @@
 								   xmlns:app="http://schemas.android.com/apk/res-auto"
 								   android:layout_width="match_parent"
 								   android:layout_height="wrap_content"
-								   android:layout_margin="@dimen/pokemon_margin">
+								   android:layout_marginStart="@dimen/pokemon_margin_s"
+								   android:layout_marginLeft="@dimen/pokemon_margin_s"
+								   android:layout_marginTop="@dimen/pokemon_margin_t"
+								   android:layout_marginEnd="@dimen/pokemon_margin_e"
+								   android:layout_marginRight="@dimen/pokemon_margin_e"
+								   android:layout_marginBottom="@dimen/pokemon_margin_b">
 
 	<!-- The padded container -->
 	<androidx.constraintlayout.widget.ConstraintLayout

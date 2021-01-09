@@ -13,6 +13,9 @@ import org.json.JSONObject
 /** The Kotlin logger object. */
 private val logger = PokeLogger.logger {}
 
+/** The complete name of the class. */
+private val CLASS = AuthDataSource::class.java.canonicalName
+
 /**
  * The data source used for authentication.
  *
@@ -26,6 +29,11 @@ object AuthDataSource {
 	/** The [GSON][Gson] object. */
 	private val gson = Gson()
 
+	// Logs the object creation
+	init {
+		logger.cycle { "Creating an instance of $CLASS" }
+	}
+
 	/**
 	 * Performs a synchronous login request.
 	 *
@@ -33,17 +41,17 @@ object AuthDataSource {
 	 * @return The response.
 	 */
 	fun login(request: NetworkLoginRequest): NetworkLoginResponse? {
-		logger.event { "Requesting: $base/login" }
 		val req = AndroidNetworking.post("$base/login")
 			.addJSONObjectBody(JSONObject(gson.toJson(request)))
 			.setPriority(Priority.HIGH)
 			.build()
+		logger.event { "Requesting resource at ${req.url}" }
 		val res = req.executeForString()
 		return if (res.isSuccess) {
-			logger.event("Parsing response as NetworkLoginResponse")
+			logger.event { "Parsed response from ${req.url} as NetworkLoginResponse" }
 			gson.fromJson(res.result as String, NetworkLoginResponse::class.java)
 		} else {
-			logger.event("Parsing response failed")
+			logger.error { "Could not parse response from ${req.url} as NetworkLoginResponse" }
 			null
 		}
 	}
@@ -55,17 +63,17 @@ object AuthDataSource {
 	 * @return The response.
 	 */
 	fun signup(request: NetworkSignupRequest): NetworkSignupResponse? {
-		logger.event { "Requesting: $base/signup" }
 		val req = AndroidNetworking.post("$base/signup")
 			.addJSONObjectBody(JSONObject(gson.toJson(request)))
 			.setPriority(Priority.HIGH)
 			.build()
+		logger.event { "Requesting resource at ${req.url}" }
 		val res = req.executeForString()
 		return if (res.isSuccess) {
-			logger.event("Parsing response as NetworkSignupResponse")
+			logger.event { "Parsed response from ${req.url} as NetworkSignupResponse" }
 			gson.fromJson(res.result as String, NetworkSignupResponse::class.java)
 		} else {
-			logger.event("Parsing response failed")
+			logger.error { "Could not parse response from ${req.url} as NetworkSignupResponse" }
 			null
 		}
 	}

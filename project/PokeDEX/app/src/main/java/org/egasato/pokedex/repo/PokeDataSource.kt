@@ -10,6 +10,9 @@ import org.egasato.pokedex.model.dto.NetworkPokeListResponse
 /** The Kotlin logger object. */
 private val logger = PokeLogger.logger {}
 
+/** The complete name of the class. */
+private val CLASS = PokeDataSource::class.java.canonicalName
+
 /**
  * The data source used for the Pokédex.
  *
@@ -23,6 +26,11 @@ object PokeDataSource {
 	/** The [GSON][Gson] object. */
 	private val gson = Gson()
 
+	// Logs the object creation
+	init {
+		logger.cycle { "Creating an instance of $CLASS" }
+	}
+
 	/**
 	 * Performs a synchronous Pokémon list request.
 	 *
@@ -33,22 +41,16 @@ object PokeDataSource {
 		val req = AndroidNetworking.get("$base/pokemon")
 			.addQueryParameter("limit", request.limit.toString())
 			.addQueryParameter("offset", request.offset.toString())
-			.setPriority(Priority.LOW)
+			.setPriority(Priority.MEDIUM)
 			.build()
-		logger.event { "Requesting: ${req.url}" }
+		logger.event { "Requesting resource at ${req.url}" }
 		val res = req.executeForString()
 		return if (res.isSuccess) {
-			logger.event("Parsing response as NetworkPokeListResponse")
+			logger.event { "Parsed response from ${req.url} as NetworkPokeListResponse" }
 			val tmp = gson.fromJson(res.result as String, NetworkPokeListResponse::class.java)
-			NetworkPokeListResponse(
-				count = tmp.count,
-				next = tmp.next,
-				previous = tmp.previous,
-				offset = request.offset,
-				results = tmp.results
-			)
+			NetworkPokeListResponse(tmp.count, tmp.next, tmp.previous, request.offset, tmp.results)
 		} else {
-			logger.event("Parsing response failed")
+			logger.error { "Could not parse response from ${req.url} as NetworkPokeListResponse" }
 			null
 		}
 	}

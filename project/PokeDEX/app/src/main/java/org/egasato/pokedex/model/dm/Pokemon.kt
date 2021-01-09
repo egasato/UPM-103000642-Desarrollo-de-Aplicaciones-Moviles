@@ -1,6 +1,13 @@
 package org.egasato.pokedex.model.dm
 
 import android.graphics.Bitmap
+import org.egasato.pokedex.log.PokeLogger
+
+/** The Kotlin logger object. */
+private val logger = PokeLogger.logger {}
+
+/** The complete name of the class. */
+private val CLASS = Pokemon::class.java.canonicalName
 
 /**
  * The Pokémon shown in the list.
@@ -19,6 +26,11 @@ data class Pokemon(
 	var image: Bitmap?,
 	val stats: PokemonStats?
 ) {
+
+	// Logs the object creation
+	init {
+		logger.cycle { "Creating an instance of $CLASS" }
+	}
 
 	/** Unnamed companion object exposing the static methods. */
 	companion object {

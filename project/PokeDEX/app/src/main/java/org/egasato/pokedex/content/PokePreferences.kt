@@ -6,6 +6,13 @@ import androidx.core.content.edit
 import org.egasato.pokedex.BuildConfig
 import org.egasato.pokedex.app.PokeApplication
 import org.egasato.pokedex.lib.content.SecurePreferences
+import org.egasato.pokedex.log.PokeLogger
+
+/** The Kotlin logger object. */
+private val logger = PokeLogger.logger {}
+
+/** The complete name of the class. */
+private val CLASS = PokePreferences::class.java.canonicalName
 
 /**
  * A simple class that backs its contents in a shared preferences file.
@@ -28,16 +35,29 @@ class PokePreferences(context: Context) : PokeApplication.Aware {
 
 	/** The username. */
 	var username: String
-		get() = preferences.getString("username", "")!!
+		get() {
+			logger.getter("Accessing the member \"username\"")
+			return preferences.getString("username", "")!!
+		}
 		set(value) {
+			logger.setter("Accessing the member \"username\"")
 			preferences.edit { putString("username", value) }
 		}
 
 	/** The token. */
 	var token: String
-		get() = preferences.getString("token", "")!!
+		get() {
+			logger.getter("Accessing the member \"token\"")
+			return preferences.getString("token", "")!!
+		}
 		set(value) {
+			logger.setter("Accessing the member \"token\"")
 			preferences.edit { putString("token", value) }
 		}
+
+	// Logs the object creation
+	init {
+		logger.cycle { "Creating an instance of $CLASS" }
+	}
 
 }

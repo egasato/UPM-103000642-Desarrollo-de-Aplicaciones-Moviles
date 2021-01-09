@@ -1,6 +1,13 @@
 package org.egasato.pokedex.model.dto
 
 import com.google.gson.annotations.SerializedName
+import org.egasato.pokedex.log.PokeLogger
+
+/** The Kotlin logger object. */
+private val logger = PokeLogger.logger {}
+
+/** The complete name of the class. */
+private val CLASS = NetworkPokeListResponse::class.java.canonicalName
 
 /**
  * The response of a Pokémon list query.
@@ -18,4 +25,11 @@ class NetworkPokeListResponse(
 	@JvmField @SerializedName("previous") val previous: String?,
 	@JvmField @SerializedName("offset") val offset: Int?,
 	@JvmField @SerializedName("results") val results: List<NetworkPokeResource>
-)
+) {
+
+	// Logs the object creation
+	init {
+		logger.cycle { "Creating an instance of $CLASS" }
+	}
+
+}

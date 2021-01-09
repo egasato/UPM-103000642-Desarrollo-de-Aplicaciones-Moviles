@@ -10,7 +10,7 @@ import org.egasato.pokedex.log.PokeLogger
 /** The Kotlin logger object. */
 private val logger = PokeLogger.logger {}
 
-/** The complete name of the class */
+/** The complete name of the class. */
 private val CLASS = PokeAuthViewModel::class.java.canonicalName
 
 /**
@@ -21,8 +21,11 @@ private val CLASS = PokeAuthViewModel::class.java.canonicalName
 class PokeAuthViewModel : ViewModel() {
 
 	/** Whether the model was alive or not. */
-	@JvmField
-	var wasAlive = false
+	var first = false
+		get() {
+			logger.getter("Accessing the member \"first\"")
+			return field
+		}
 
 	/** The bitmap scale value. */
 	lateinit var scaleBmp: Single<Float>
@@ -44,23 +47,47 @@ class PokeAuthViewModel : ViewModel() {
 
 	/** The active fragment. */
 	val fragment = MutableLiveData<Int>()
+		get() {
+			logger.getter("Accessing the member \"fragment\"")
+			return field
+		}
 
 	/** The username value. */
 	val username = MutableLiveData<CharSequence>()
+		get() {
+			logger.getter("Accessing the member \"username\"")
+			return field
+		}
 
 	/** The password value. */
 	val password = MutableLiveData<CharSequence>()
+		get() {
+			logger.getter("Accessing the member \"password\"")
+			return field
+		}
 
 	/** The email value. */
 	val email = MutableLiveData<CharSequence>()
+		get() {
+			logger.getter("Accessing the member \"email\"")
+			return field
+		}
 
 	/** The repeated password. */
 	val repeat = MutableLiveData<CharSequence>()
+		get() {
+			logger.getter("Accessing the member \"repeat\"")
+			return field
+		}
 
 	/** The form state. */
 	val state = AuthFormState()
+		get() {
+			logger.getter("Accessing the member \"state\"")
+			return field
+		}
 
-	/** Logs the creation of the instance. */
+	// Logs the object creation
 	init {
 		logger.cycle { "Creating an instance of $CLASS" }
 	}

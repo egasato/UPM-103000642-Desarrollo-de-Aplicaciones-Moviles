@@ -1,10 +1,17 @@
 package org.egasato.pokedex.model.map
 
+import org.egasato.pokedex.log.PokeLogger
 import org.egasato.pokedex.model.dm.PokeListResponse
 import org.egasato.pokedex.model.dm.Pokemon
 import org.egasato.pokedex.model.dto.NetworkPokeListResponse
 import org.egasato.pokedex.model.dto.NetworkPokeResource
 import java.util.Locale
+
+/** The Kotlin logger object. */
+private val logger = PokeLogger.logger {}
+
+/** The complete name of the class. */
+private val CLASS = PokeListResponseMapper::class.java.canonicalName
 
 /** The regular expression used with the dashed names. */
 private val DASHES = Regex("-([^-]+)")
@@ -16,6 +23,11 @@ private val DASHES = Regex("-([^-]+)")
  */
 object PokeListResponseMapper : Mapper<NetworkPokeListResponse, PokeListResponse> {
 
+	// Logs the object creation
+	init {
+		logger.cycle { "Creating an instance of $CLASS" }
+	}
+
 	/**
 	 * Maps an input model to an output model.
 	 *
@@ -23,6 +35,7 @@ object PokeListResponseMapper : Mapper<NetworkPokeListResponse, PokeListResponse
 	 * @return The output model.
 	 */
 	override fun map(input: NetworkPokeListResponse): PokeListResponse {
+		logger.event("Mapping a NetworkPokeListResponse into a PokeListResponse")
 		return PokeListResponse.builder().apply {
 			offset = input.offset ?: 0
 			list = input.results.mapIndexed { i: Int, v: NetworkPokeResource ->

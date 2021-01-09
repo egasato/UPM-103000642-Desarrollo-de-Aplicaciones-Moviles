@@ -1,6 +1,13 @@
 package org.egasato.pokedex.model.dto
 
 import com.google.gson.annotations.SerializedName
+import org.egasato.pokedex.log.PokeLogger
+
+/** The Kotlin logger object. */
+private val logger = PokeLogger.logger {}
+
+/** The complete name of the class. */
+private val CLASS = NetworkAuthResponse::class.java.canonicalName
 
 /**
  * The model of an authentication response as used by the repository network logic.
@@ -14,12 +21,9 @@ abstract class NetworkAuthResponse(
 	@JvmField @SerializedName("message") val message: String
 ) {
 
-	/** Checks if the response has an error. */
-	val hasError
-		get() = code != 0
-
-	/** Checks if the response has no error. */
-	val hasSuccess
-		get() = code == 0
+	// Logs the object creation
+	init {
+		logger.cycle { "Creating an instance of $CLASS" }
+	}
 
 }

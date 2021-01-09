@@ -12,7 +12,7 @@ import org.egasato.pokedex.log.PokeLogger
 /** The Kotlin logger object. */
 private val logger = PokeLogger.logger {}
 
-/** The complete name of the class */
+/** The complete name of the class. */
 private val CLASS = OffsetAnimator::class.java.canonicalName
 
 /**
@@ -34,8 +34,11 @@ class OffsetAnimator(
 	private val subject = PublishSubject.create<Pair<Float, Float>>()
 
 	/** The observable data. */
-	@JvmField
 	val observable = subject as Observable<Pair<Float, Float>>
+		get() {
+			logger.getter("Accessing the member \"observable\"")
+			return field
+		}
 
 	/**
 	 * Configures the instance and adds the listener.

@@ -39,8 +39,8 @@ import kotlin.math.sin
 /** The Kotlin logger object. */
 private val logger = PokeLogger.logger {}
 
-/** The complete name of the class */
-private val CLASS = PokeMainActivity::class.java.canonicalName
+/** The complete name of the class. */
+private val CLASS = PokeAuthActivity::class.java.canonicalName
 
 /** The minimum scale. */
 private const val MIN_SCALE = 2f
@@ -126,13 +126,18 @@ class PokeAuthActivity : AppCompatActivity(), PokeApplication.Aware {
 	/** Error background color. */
 	private var errCol: Int = 0
 
+	// Logs the object creation
+	init {
+		logger.cycle { "Creating an instance of $CLASS" }
+	}
+
 	/**
 	 * Loads the UI and creates the view model.
 	 *
 	 * @param savedInstanceState The saved state of this instance.
 	 */
 	override fun onCreate(savedInstanceState: Bundle?) {
-		logger.android("Creating an instance of $CLASS")
+		logger.android { "Creating an instance of $CLASS" }
 		super.onCreate(savedInstanceState)
 
 		logger.android("Setting the content view")
@@ -146,7 +151,7 @@ class PokeAuthActivity : AppCompatActivity(), PokeApplication.Aware {
 			displayOptions = ActionBar.DISPLAY_SHOW_CUSTOM
 		}
 
-		// Setup the navigation controller
+		logger.android("Configuring the navigation controller")
 		val fragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
 		controller = fragment.navController
 		controller.setGraph(R.navigation.nav_graph)
@@ -155,6 +160,7 @@ class PokeAuthActivity : AppCompatActivity(), PokeApplication.Aware {
 		initViewModelOrUpdateActivity()
 
 		// Update the buttons based on the active fragment
+		logger.android("Observing fragment changes")
 		model.fragment.observe(this) {
 			when (it) {
 				R.id.login_fragment -> {
@@ -170,14 +176,16 @@ class PokeAuthActivity : AppCompatActivity(), PokeApplication.Aware {
 		}
 
 		// Initialize networking
+		logger.android("Configuring the networking library")
 		AndroidNetworking.initialize(applicationContext)
 
 		// Initialize icons
+		logger.android("Initializing the drawables")
 		doneDrw = ResourcesCompat.getDrawable(resources, R.drawable.done, null)!!
-		doneBmp = doneDrw.toBitmap(24, 24, null)
+		doneBmp = doneDrw.toBitmap(192, 192, null)
 		doneCol = ResourcesCompat.getColor(resources, R.color.green_900, null)
 		errDrw = ResourcesCompat.getDrawable(resources, R.drawable.clear, null)!!
-		errBmp = errDrw.toBitmap(24, 24, null)
+		errBmp = errDrw.toBitmap(192, 192, null)
 		errCol = ResourcesCompat.getColor(resources, R.color.red_900, null)
 	}
 
@@ -295,18 +303,21 @@ class PokeAuthActivity : AppCompatActivity(), PokeApplication.Aware {
 
 	/** Switches to the sign-up fragment. */
 	private fun switchToSignup() {
+		logger.event("Switching to the sign-up fragment")
 		val action = PokeLoginFragmentDirections.switchToSignup()
 		controller.navigate(action)
 	}
 
 	/** Switches to the login fragment. */
 	private fun switchToLogin() {
+		logger.event("Switching to the login fragment")
 		val action = PokeSignupFragmentDirections.switchToLogin()
 		controller.navigate(action)
 	}
 
 	/** Switches to the list activity. */
 	private fun switchToList() {
+		logger.event("Switching to the list activity")
 		val intent = Intent(this, PokeListActivity::class.java)
 		startActivity(intent)
 		finish()
@@ -317,7 +328,7 @@ class PokeAuthActivity : AppCompatActivity(), PokeApplication.Aware {
 		logger.android("Initializing view model or updating the activity state")
 		logger.android("Synchronizing the background image state")
 		findViewById<TileImageView>(R.id.background).also {
-			if (!model.wasAlive) {
+			if (!model.first) {
 				logger.android("Initializing the view model (scale properties)")
 				model.scaleBmp = Single.create(it.scaleBitmap.coerceAtLeast(MAX_SCALE))
 				model.scaleDraw = Single.create(it.scaleDraw.coerceAtMost(1f))
@@ -329,7 +340,7 @@ class PokeAuthActivity : AppCompatActivity(), PokeApplication.Aware {
 			scaleMax = model.scaleMax
 			scaleMin = model.scaleMin
 		}.also {
-			if (!model.wasAlive) {
+			if (!model.first) {
 				logger.android("Initializing the view model (movement properties)")
 				model.movement = Pair.create(0f, 0f).apply {
 					val direction = Math.random() * Math.toRadians(360.0)
@@ -339,7 +350,7 @@ class PokeAuthActivity : AppCompatActivity(), PokeApplication.Aware {
 			}
 			movement = model.movement
 		}.also {
-			if (!model.wasAlive) {
+			if (!model.first) {
 				logger.android("Initializing the view model (offset properties)")
 				model.offset = Pair.create(0f, 0f).apply {
 					first = it.offsetX
@@ -348,13 +359,13 @@ class PokeAuthActivity : AppCompatActivity(), PokeApplication.Aware {
 			}
 			offset = model.offset
 		}.also(::initAnimators)
-		if (!model.wasAlive) {
+		if (!model.first) {
 			model.username.value = ""
 			model.password.value = ""
 			model.email.value = ""
 			model.repeat.value = ""
 		}
-		model.wasAlive = true
+		model.first = true
 	}
 
 	/**
@@ -397,44 +408,60 @@ class PokeAuthActivity : AppCompatActivity(), PokeApplication.Aware {
 	 * @return Whether the data is valid or not.
 	 */
 	private fun checkData(): Boolean {
+		logger.android("Checking the input data")
 		var focused = 0
 		val validUsername = model.username.value?.matches(REGEX_USERNAME)
-		val validPassword = model.password.value?.matches(REGEX_PASSWORD)
 		if (validUsername != true) {
+			logger.event("The username is wrong")
 			model.state.username.value = getString(R.string.err_username)
 			findViewById<EditText>(R.id.username).requestFocus()
 			focused = 1
+		} else {
+			logger.event("The username is correct")
 		}
+		val validPassword = model.password.value?.matches(REGEX_PASSWORD)
 		if (validPassword != true) {
+			logger.event("The password is wrong")
 			model.state.password.value = getString(R.string.err_password)
 			if (focused > 3 || focused == 0) {
 				findViewById<EditText>(R.id.password).requestFocus()
 				focused = 3
 			}
+		} else {
+			logger.event("The password is correct")
 		}
-		if (controller.currentDestination!!.id == R.id.signup_fragment) {
+		return if (controller.currentDestination!!.id == R.id.signup_fragment) {
 			val validEmail = model.email.value?.matches(REGEX_EMAIL)
-			val validRepeat = model.repeat.value?.matches(REGEX_PASSWORD)
 			if (validEmail != true) {
+				logger.event("The email is wrong")
 				model.state.email.value = getString(R.string.err_email)
 				if (focused > 2 || focused == 0) {
 					findViewById<EditText>(R.id.email).requestFocus()
 					focused = 2
 				}
+			} else {
+				logger.event("The email is correct")
 			}
+			val validRepeat = model.repeat.value?.matches(REGEX_PASSWORD)
 			if (validRepeat != true) {
+				logger.event("The repeated password is wrong")
 				model.state.repeat.value = getString(R.string.err_password)
 				if (focused > 4 || focused == 0) {
 					findViewById<EditText>(R.id.repeat_password).requestFocus()
 				}
 			} else if (!model.password.value!!.toString().contentEquals(model.repeat.value!!)) {
+				logger.event("The repeated password does not match")
 				model.state.repeat.value = getString(R.string.err_repeat)
 				if (focused > 4 || focused == 0) {
 					findViewById<EditText>(R.id.repeat_password).requestFocus()
 				}
+			} else {
+				logger.event("The repeated password is correct")
 			}
-		}
-		return focused == 0
+			model.state.isSignupValid
+		} else {
+			model.state.isLoginValid
+		} && focused == 0
 	}
 
 	/**
@@ -448,7 +475,7 @@ class PokeAuthActivity : AppCompatActivity(), PokeApplication.Aware {
 			password = password.value!!.toString(),
 			email = email.value!!.toString()
 		)
-		logger.event { "Server message is: ${result?.message}" }
+		logger.event { "The server message is: ${result?.message}" }
 		result
 	}
 
@@ -462,7 +489,7 @@ class PokeAuthActivity : AppCompatActivity(), PokeApplication.Aware {
 			username = username.value!!.toString(),
 			password = password.value!!.toString()
 		)
-		logger.event { "Server message is: ${result?.message}" }
+		logger.event { "The server message is: ${result?.message}" }
 		result
 	}
 

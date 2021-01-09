@@ -12,7 +12,7 @@ import java.util.concurrent.TimeUnit
 /** The Kotlin logger object. */
 private val logger = PokeLogger.logger {}
 
-/** The complete name of the class */
+/** The complete name of the class. */
 private val CLASS = ScaleAnimator::class.java.canonicalName
 
 /** The duration of the scale animation. */
@@ -75,7 +75,7 @@ class ScaleAnimator(
 	 */
 	override fun nextDelay(): Long {
 		return super.nextDelay().also {
-			logger.event { "Running scheduled in $it ms" }
+			logger.event { "Next animation scheduled in $it ms" }
 		}
 	}
 

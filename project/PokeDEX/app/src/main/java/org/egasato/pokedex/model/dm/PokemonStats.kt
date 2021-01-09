@@ -1,5 +1,13 @@
 package org.egasato.pokedex.model.dm
 
+import org.egasato.pokedex.log.PokeLogger
+
+/** The Kotlin logger object. */
+private val logger = PokeLogger.logger {}
+
+/** The complete name of the class. */
+private val CLASS = PokemonStats::class.java.canonicalName
+
 /**
  * The details shown when a Pokémon is selected.
  *
@@ -31,6 +39,11 @@ class PokemonStats(
 	val items: Array<String>,
 	val movements: Array<String>,
 ) {
+
+	// Logs the object creation
+	init {
+		logger.cycle { "Creating an instance of $CLASS" }
+	}
 
 	/** Unnamed companion object exposing the static methods. */
 	companion object {

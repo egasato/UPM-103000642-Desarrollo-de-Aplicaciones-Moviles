@@ -11,6 +11,9 @@ import org.egasato.pokedex.model.map.mapToNetwork
 /** The Kotlin logger object. */
 private val logger = PokeLogger.logger {}
 
+/** The complete name of the class. */
+private val CLASS = AuthRepository::class.java.canonicalName
+
 /**
  * The repository that performs authentication operations.
  *
@@ -18,17 +21,21 @@ private val logger = PokeLogger.logger {}
  */
 object AuthRepository {
 
+	// Logs the object creation
+	init {
+		logger.cycle { "Creating an instance of $CLASS" }
+	}
+
 	/**
 	 * Performs a synchronous login request.
 	 *
 	 * @param request The request object.
 	 * @return The response.
 	 */
-	fun login(request: LoginRequest): LoginResponse? {
-		logger.event("Transforming domain model to DTO")
+	private fun login(request: LoginRequest): LoginResponse? {
+		logger.event("Performing login operation")
 		val dto = request.mapToNetwork()
 		val response = AuthDataSource.login(dto)
-		logger.event("Transforming DTO to domain model")
 		return response?.mapToDomain()
 	}
 
@@ -40,7 +47,6 @@ object AuthRepository {
 	 * @return The response.
 	 */
 	fun login(username: String, password: String): LoginResponse? {
-		logger.event("Creating login request domain model")
 		val domain = LoginRequest.builder().apply {
 			this.username = username
 			this.password = password
@@ -54,11 +60,10 @@ object AuthRepository {
 	 * @param request The request object.
 	 * @return The response.
 	 */
-	fun signup(request: SignupRequest): SignupResponse? {
-		logger.event("Transforming domain model to DTO")
+	private fun signup(request: SignupRequest): SignupResponse? {
+		logger.event("Performing sign-up operation")
 		val dto = request.mapToNetwork()
 		val response = AuthDataSource.signup(dto)
-		logger.event("Transforming DTO to domain model")
 		return response?.mapToDomain()
 	}
 
@@ -71,7 +76,6 @@ object AuthRepository {
 	 * @return The response.
 	 */
 	fun signup(username: String, email: String, password: String): SignupResponse? {
-		logger.event("Creating login request domain model")
 		val domain = SignupRequest.builder().apply {
 			this.username = username
 			this.email = email

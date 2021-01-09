@@ -16,7 +16,7 @@ import org.egasato.pokedex.log.PokeLogger
 /** The Kotlin logger object. */
 private val logger = PokeLogger.logger {}
 
-/** The complete name of the class */
+/** The complete name of the class. */
 private val CLASS = PokeLoginFragment::class.java.canonicalName
 
 /**
@@ -29,7 +29,7 @@ class PokeLoginFragment : Fragment() {
 	/** The view model of the activity. */
 	private val model: PokeAuthViewModel by activityViewModels()
 
-	/** Logs the creation of the instance. */
+	// Logs the object creation
 	init {
 		logger.cycle { "Creating an instance of $CLASS" }
 	}
@@ -40,7 +40,7 @@ class PokeLoginFragment : Fragment() {
 	 * Updates the [active fragment][PokeAuthViewModel.fragment] from the [view model][PokeAuthViewModel].
 	 */
 	override fun onAttach(context: Context) {
-		logger.android("[PokeLoginFragment] Attaching the fragment")
+		logger.android("Attaching the fragment")
 		super.onAttach(context)
 	}
 
@@ -53,7 +53,7 @@ class PokeLoginFragment : Fragment() {
 	 * @return The fragment view.
 	 */
 	override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-		logger.android("[PokeLoginFragment] Inflating the view")
+		logger.android("Inflating the view")
 		model.fragment.value = R.id.login_fragment
 		val view = inflater.inflate(R.layout.login_fragment, container, false)
 		view.findViewById<EditText>(R.id.username).apply {

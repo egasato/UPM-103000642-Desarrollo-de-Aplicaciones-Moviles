@@ -9,6 +9,9 @@ import org.egasato.pokedex.model.map.mapToNetwork
 /** The Kotlin logger object. */
 private val logger = PokeLogger.logger {}
 
+/** The complete name of the class. */
+private val CLASS = PokeRepository::class.java.canonicalName
+
 /**
  * The repository that performs Pokémon operations.
  *
@@ -16,17 +19,21 @@ private val logger = PokeLogger.logger {}
  */
 object PokeRepository {
 
+	// Logs the object creation
+	init {
+		logger.cycle { "Creating an instance of $CLASS" }
+	}
+
 	/**
 	 * Performs a synchronous Pokémon list request.
 	 *
 	 * @param request The request object.
 	 * @return The response.
 	 */
-	fun pokemon(request: PokeListRequest): PokeListResponse? {
-		logger.event("Transforming domain model to DTO")
+	private fun pokemon(request: PokeListRequest): PokeListResponse? {
+		logger.event("Performing listing operation")
 		val dto = request.mapToNetwork()
 		val response = PokeDataSource.pokemon(dto)
-		logger.event("Transforming DTO to domain model")
 		return response?.mapToDomain()
 	}
 
@@ -38,7 +45,6 @@ object PokeRepository {
 	 * @return The response.
 	 */
 	fun pokemon(limit: Int, offset: Int): PokeListResponse? {
-		logger.event("Creating list request domain model")
 		val domain = PokeListRequest.builder().apply {
 			this.limit = limit
 			this.offset = offset

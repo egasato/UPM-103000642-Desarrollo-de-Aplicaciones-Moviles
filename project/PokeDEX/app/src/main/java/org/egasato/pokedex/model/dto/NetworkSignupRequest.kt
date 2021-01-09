@@ -1,6 +1,13 @@
 package org.egasato.pokedex.model.dto
 
 import com.google.gson.annotations.SerializedName
+import org.egasato.pokedex.log.PokeLogger
+
+/** The Kotlin logger object. */
+private val logger = PokeLogger.logger {}
+
+/** The complete name of the class. */
+private val CLASS = NetworkSignupRequest::class.java.canonicalName
 
 /**
  * The model of a sign-up request as used by the repository.
@@ -15,6 +22,11 @@ class NetworkSignupRequest(
 	password: String,
 	@JvmField @SerializedName("email") val email: String
 ) : NetworkAuthRequest(username, password) {
+
+	// Logs the object creation
+	init {
+		logger.cycle { "Creating an instance of $CLASS" }
+	}
 
 	/** Unnamed companion object exposing the static methods. */
 	companion object {

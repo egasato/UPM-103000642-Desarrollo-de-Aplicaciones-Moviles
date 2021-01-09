@@ -1,14 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<dimen name="pokedex_title">15sp</dimen>
-	<dimen name="pokemon_margin">20dp</dimen>
+	<dimen name="pokemon_margin_s">20dp</dimen>
+	<dimen name="pokemon_margin_e">20dp</dimen>
+	<dimen name="pokemon_margin_t">20dp</dimen>
+	<dimen name="pokemon_margin_b">0dp</dimen>
 	<dimen name="pokemon_margin_text">20dp</dimen>
 	<dimen name="pokemon_padding_s">10dp</dimen>
 	<dimen name="pokemon_padding_e">20dp</dimen>
 	<dimen name="pokemon_padding_t">10dp</dimen>
 	<dimen name="pokemon_padding_b">10dp</dimen>
 	<dimen name="pokemon_icon">75dp</dimen>
-	<dimen name="pokemon_name">16sp</dimen>
+	<dimen name="pokemon_name">20sp</dimen>
 	<dimen name="pokemon_id">16sp</dimen>
 	<dimen name="pokemon_id_stroke">12sp</dimen>
 </resources>

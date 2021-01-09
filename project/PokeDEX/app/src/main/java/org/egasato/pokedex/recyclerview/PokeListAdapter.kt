@@ -1,4 +1,4 @@
-package org.egasato.pokedex.app
+package org.egasato.pokedex.recyclerview
 
 import android.content.Context
 import android.graphics.Bitmap
@@ -12,14 +12,18 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import org.egasato.pokedex.R
+import org.egasato.pokedex.app.PokeListActivity
 import org.egasato.pokedex.log.PokeLogger
 import org.egasato.pokedex.model.dm.Pokemon
 import org.egasato.pokedex.repo.PokeRepository
-import org.egasato.pokedex.view.animation.PokeItemViewHolder
-import org.egasato.pokedex.view.animation.PokeLoadingViewHolder
+import org.egasato.pokedex.view.PokeItemViewHolder
+import org.egasato.pokedex.view.PokeLoadingViewHolder
 
 /** The Kotlin logger object. */
 private val logger = PokeLogger.logger {}
+
+/** The complete name of the class. */
+private val CLASS = PokeListAdapter::class.java.canonicalName
 
 /** The type of a loading view holder. */
 private const val VIEW_TYPE_LOADING = 0
@@ -39,6 +43,12 @@ class PokeListAdapter(
 	@JvmField val list: MutableList<Pokemon?>
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
+	// Logs the object creation
+	init {
+		logger.cycle { "Creating an instance of $CLASS" }
+		setHasStableIds(true)
+	}
+
 	/**
 	 * Creates the view holder for an item.
 	 *
@@ -48,11 +58,13 @@ class PokeListAdapter(
 	 */
 	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = when (viewType) {
 		VIEW_TYPE_LOADED -> {
+			logger.android("Creating loaded view holder")
 			val id = R.layout.pokemon_item
 			val view = LayoutInflater.from(parent.context).inflate(id, parent, false)
 			PokeItemViewHolder(view)
 		}
 		VIEW_TYPE_LOADING -> {
+			logger.android("Creating loading view holder")
 			val id = R.layout.pokemon_loading
 			val view = LayoutInflater.from(parent.context).inflate(id, parent, false)
 			PokeLoadingViewHolder(view)
@@ -67,16 +79,14 @@ class PokeListAdapter(
 	 * @param position The recycler item position.
 	 */
 	override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-		logger.event { "Binding Pokémon @ $position" }
 		if (holder.itemViewType == VIEW_TYPE_LOADING) {
+			logger.android("Binding loading view holder @ $position")
 			GlobalScope.launch(Dispatchers.IO) {
 				val pokemons = PokeRepository.pokemon(1, position)
 				if (pokemons != null) {
 					val max = position + pokemons.size
 					for (i in position until max) {
-						if (list[i] == null) {
-							list[i] = pokemons[i - position]
-						}
+						if (list[i] == null) list[i] = pokemons[i - position]
 					}
 					(context as PokeListActivity).runOnUiThread {
 						notifyItemRangeChanged(position, pokemons.size)
@@ -87,10 +97,10 @@ class PokeListAdapter(
 							.setPriority(Priority.LOW)
 							.setBitmapConfig(Bitmap.Config.ARGB_8888)
 							.build()
-						logger.event { "Requesting: ${req.url}" }
+						logger.event { "Requesting resource at ${req.url}" }
 						val res = req.executeForBitmap()
 						if (res.isSuccess) {
-							logger.event("Parsing icon @ $i...")
+							logger.event { "Parsed response from ${req.url} as Bitmap" }
 							val img = res.result as Bitmap
 							list[i] = Pokemon.builder().apply {
 								id = pokemon.id
@@ -99,12 +109,13 @@ class PokeListAdapter(
 							}.build()
 							context.runOnUiThread { notifyItemChanged(i) }
 						} else {
-							logger.event("Error parsing icon @ $i...")
+							logger.error { "Could not parse response from ${req.url} as NetworkLoginResponse" }
 						}
 					}
 				}
 			}
 		} else {
+			logger.android("Binding loaded view holder @ $position")
 			if (holder !is PokeItemViewHolder) throw IllegalStateException("Unknown view holder")
 			holder.id.text = list[position]!!.id.toString()
 			holder.name.text = list[position]!!.name
@@ -139,4 +150,13 @@ class PokeListAdapter(
 		VIEW_TYPE_LOADED
 	}
 
+	/**
+	 * Returns an identifier of an item.
+	 *
+	 * @param position The item index.
+	 * @return The identifier.
+	 */
+	override fun getItemId(position: Int): Long {
+		return list[position]?.id?.toLong() ?: (position + 1L)
+	}
 }

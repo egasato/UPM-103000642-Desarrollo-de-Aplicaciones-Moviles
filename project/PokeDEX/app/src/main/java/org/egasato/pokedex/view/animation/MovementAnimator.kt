@@ -15,7 +15,7 @@ import kotlin.math.sin
 /** The Kotlin logger object. */
 private val logger = PokeLogger.logger {}
 
-/** The complete name of the class */
+/** The complete name of the class. */
 private val CLASS = MovementAnimator::class.java.canonicalName
 
 /** The duration of the scale animation. */
@@ -101,7 +101,7 @@ class MovementAnimator(
 	/** Computes the next delay. */
 	private fun nextDelay() {
 		startDelay = (minDelay.first + (maxDelay.first - minDelay.first) * Math.random()).toLong()
-		logger.event { "Running scheduled in $startDelay ms" }
+		logger.event { "Next animation scheduled in $startDelay ms" }
 	}
 
 	/** Computes the next angle. */
@@ -109,7 +109,7 @@ class MovementAnimator(
 		val angle = Math.random() * 360.0
 		val radians = Math.toRadians(angle)
 		logger.event { "Next direction will be ${angle}° ($radians radians)" }
-		val new = Pair.create(first = cos(radians).toFloat(), second = sin(radians).toFloat())
+		val new = Pair.create(cos(radians).toFloat(), sin(radians).toFloat())
 		from = movement
 		to = new
 	}
