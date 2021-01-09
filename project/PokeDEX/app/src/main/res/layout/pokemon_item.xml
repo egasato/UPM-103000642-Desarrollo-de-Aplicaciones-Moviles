@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+								   xmlns:app="http://schemas.android.com/apk/res-auto"
+								   android:layout_width="match_parent"
+								   android:layout_height="wrap_content"
+								   android:layout_margin="@dimen/pokemon_margin">
+
+	<!-- The padded container -->
+	<androidx.constraintlayout.widget.ConstraintLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:paddingStart="@dimen/pokemon_padding_s"
+		android:paddingLeft="@dimen/pokemon_padding_s"
+		android:paddingTop="@dimen/pokemon_padding_t"
+		android:paddingEnd="@dimen/pokemon_padding_e"
+		android:paddingRight="@dimen/pokemon_padding_e"
+		android:paddingBottom="@dimen/pokemon_padding_b">
+
+		<!-- The Pokémon icon container -->
+		<FrameLayout
+			android:id="@+id/icon_container"
+			android:layout_width="@dimen/pokemon_icon"
+			android:layout_height="@dimen/pokemon_icon"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toTopOf="parent">
+
+			<!-- The Pokémon icon -->
+			<ImageView
+				android:id="@+id/icon"
+				android:layout_width="@dimen/pokemon_icon"
+				android:layout_height="@dimen/pokemon_icon"
+				android:contentDescription="@string/description_icon" />
+
+			<!-- The loading spinner -->
+			<ProgressBar
+				android:id="@+id/load"
+				android:layout_width="@dimen/pokemon_icon"
+				android:layout_height="@dimen/pokemon_icon"
+				android:visibility="gone" />
+		</FrameLayout>
+
+		<!-- The Pokémon name -->
+		<TextView
+			android:id="@+id/name"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginStart="@dimen/pokemon_margin_text"
+			android:layout_marginLeft="@dimen/pokemon_margin_text"
+			android:singleLine="true"
+			android:textSize="@dimen/pokemon_name"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintStart_toEndOf="@id/icon_container"
+			app:layout_constraintTop_toTopOf="parent" />
+
+		<!-- The Pokémon id -->
+		<org.egasato.pokedex.lib.widget.PokeTextView
+			android:id="@+id/id"
+			style="@style/TextAppearance.PokeDEX.Widget.Identifier"
+			android:layout_marginStart="@dimen/pokemon_margin_text"
+			android:layout_marginLeft="@dimen/pokemon_margin_text"
+			android:singleLine="true"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintTop_toTopOf="parent" />
+
+	</androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>
