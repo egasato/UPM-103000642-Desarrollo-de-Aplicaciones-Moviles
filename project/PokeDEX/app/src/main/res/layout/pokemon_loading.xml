@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+								   android:layout_width="match_parent"
+								   android:layout_height="wrap_content"
+								   android:layout_margin="@dimen/pokemon_margin">
+
+	<!-- The padded container -->
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:gravity="center"
+		android:orientation="vertical"
+		android:paddingStart="@dimen/pokemon_padding_s"
+		android:paddingLeft="@dimen/pokemon_padding_s"
+		android:paddingTop="@dimen/pokemon_padding_t"
+		android:paddingEnd="@dimen/pokemon_padding_e"
+		android:paddingRight="@dimen/pokemon_padding_e"
+		android:paddingBottom="@dimen/pokemon_padding_b">
+
+		<!-- The never ending progress bar -->
+		<ProgressBar
+			android:layout_width="@dimen/pokemon_icon"
+			android:layout_height="@dimen/pokemon_icon"
+			android:indeterminate="true" />
+
+	</LinearLayout>
+</androidx.cardview.widget.CardView>
