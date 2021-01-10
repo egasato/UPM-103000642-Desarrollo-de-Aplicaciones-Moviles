@@ -66,6 +66,9 @@
 		<!-- Declare the list activity -->
 		<activity android:name=".app.PokeListActivity" />
 
+		<!-- Declare the details activity -->
+		<activity android:name=".app.PokeDetailsActivity" />
+
 	</application>
 
 </manifest>
