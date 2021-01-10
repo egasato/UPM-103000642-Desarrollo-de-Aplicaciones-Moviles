@@ -43,6 +43,9 @@ class PokeListAdapter(
 	@JvmField val list: MutableList<Pokemon?>
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
+	/** The click listener. */
+	lateinit var onClickListener: (View, Int) -> Unit
+
 	// Logs the object creation
 	init {
 		logger.cycle { "Creating an instance of $CLASS" }
@@ -79,6 +82,7 @@ class PokeListAdapter(
 	 * @param position The recycler item position.
 	 */
 	override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+		holder.itemView.setOnClickListener { onClickListener(it, position) }
 		if (holder.itemViewType == VIEW_TYPE_LOADING) {
 			logger.android("Binding loading view holder @ $position")
 			GlobalScope.launch(Dispatchers.IO) {
@@ -159,4 +163,5 @@ class PokeListAdapter(
 	override fun getItemId(position: Int): Long {
 		return list[position]?.id?.toLong() ?: (position + 1L)
 	}
+
 }

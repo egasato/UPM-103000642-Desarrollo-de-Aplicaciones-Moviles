@@ -1,6 +1,8 @@
 package org.egasato.pokedex.app
 
+import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
@@ -109,8 +111,23 @@ class PokeListActivity : AppCompatActivity() {
 		findViewById<RecyclerView>(R.id.list).also {
 			it.setHasFixedSize(true)
 			it.itemAnimator?.changeDuration = 0
-			it.adapter = PokeListAdapter(this, model.pokemons)
+			it.adapter = PokeListAdapter(this, model.pokemons).apply {
+				onClickListener = ::onPokemonClick
+			}
 		}
+	}
+
+	/**
+	 * Executed when an item is clicked.
+	 *
+	 * @param view     The view.
+	 * @param position The position.
+	 */
+	private fun onPokemonClick(view: View, position: Int) {
+		logger.event { "Clicked Pokémon at position $position" }
+		val intent = Intent(this, PokeDetailsActivity::class.java)
+		intent.putExtra("position", position)
+		startActivity(intent)
 	}
 
 	/** Initializes the view model or updates the activity state with it.  */
