@@ -3,6 +3,8 @@ package org.egasato.pokedex.repo
 import org.egasato.pokedex.log.PokeLogger
 import org.egasato.pokedex.model.dm.PokeListRequest
 import org.egasato.pokedex.model.dm.PokeListResponse
+import org.egasato.pokedex.model.dm.PokeStatsRequest
+import org.egasato.pokedex.model.dm.PokeStatsResponse
 import org.egasato.pokedex.model.map.mapToDomain
 import org.egasato.pokedex.model.map.mapToNetwork
 
@@ -50,6 +52,30 @@ object PokeRepository {
 			this.offset = offset
 		}.build()
 		return pokemon(domain)
+	}
+
+	/**
+	 * Performs a synchronous Pokémon stats request.
+	 *
+	 * @param request The request object.
+	 * @return The response.
+	 */
+	private fun stats(request: PokeStatsRequest): PokeStatsResponse? {
+		logger.event("Performing stats operation")
+		val dto = request.mapToNetwork()
+		val response = PokeDataSource.stats(dto)
+		return response?.mapToDomain()
+	}
+
+	/**
+	 * Performs a synchronous Pokémon stats request.
+	 *
+	 * @param id The Pokémon id.
+	 * @return The response.
+	 */
+	fun stats(id: Int): PokeStatsResponse? {
+		val domain = PokeStatsRequest.builder().apply { this.id = id }.build()
+		return stats(domain)
 	}
 
 }
