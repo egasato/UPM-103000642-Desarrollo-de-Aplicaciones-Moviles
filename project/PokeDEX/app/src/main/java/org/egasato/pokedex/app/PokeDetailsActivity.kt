@@ -6,11 +6,15 @@ import android.view.MenuItem
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import com.google.android.material.appbar.CollapsingToolbarLayout
 import com.google.android.material.button.MaterialButton
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import org.egasato.pokedex.R
 import org.egasato.pokedex.log.PokeLogger
 import org.egasato.pokedex.model.dm.Pokemon
+import org.egasato.pokedex.repo.PokeRepository
 
 /** The Kotlin logger object. */
 private val logger = PokeLogger.logger {}
@@ -91,18 +95,26 @@ class PokeDetailsActivity : AppCompatActivity(), PokeApplication.Aware {
 		}
 		if (stats != null) {
 			logger.draw("Updating the stats")
-			findViewById<MaterialButton>(R.id.stat_health_value).text = stats?.health.toString()
-			findViewById<MaterialButton>(R.id.stat_attack_value).text = stats?.attack.toString()
-			findViewById<MaterialButton>(R.id.stat_defense_value).text = stats?.defense.toString()
-			findViewById<MaterialButton>(R.id.stat_special_attack_value).text = stats?.specialAttack.toString()
-			findViewById<MaterialButton>(R.id.stat_special_defense_value).text = stats?.specialDefense.toString()
-			findViewById<MaterialButton>(R.id.stat_speed_value).text = stats?.speed.toString()
-			findViewById<MaterialButton>(R.id.stat_height_value).text = stats?.height.toString()
-			findViewById<MaterialButton>(R.id.stat_weight_value).text = stats?.weight.toString()
-			findViewById<MaterialButton>(R.id.stat_types_value).text = TextUtils.join(", ", stats?.types!!)
-			findViewById<MaterialButton>(R.id.stat_abilities_value).text = TextUtils.join(", ", stats?.abilities!!)
-			findViewById<MaterialButton>(R.id.stat_items_value).text = TextUtils.join(", ", stats?.items!!)
-			findViewById<MaterialButton>(R.id.stat_movements_value).text = TextUtils.join(", ", stats?.movements!!)
+			findViewById<MaterialButton>(R.id.stat_health_value).text = stats?.health.toString().ifBlank { "-" }
+			findViewById<MaterialButton>(R.id.stat_attack_value).text = stats?.attack.toString().ifBlank { "-" }
+			findViewById<MaterialButton>(R.id.stat_defense_value).text = stats?.defense.toString().ifBlank { "-" }
+			findViewById<MaterialButton>(R.id.stat_special_attack_value).text = stats?.specialAttack.toString().ifBlank { "-" }
+			findViewById<MaterialButton>(R.id.stat_special_defense_value).text = stats?.specialDefense.toString().ifBlank { "-" }
+			findViewById<MaterialButton>(R.id.stat_speed_value).text = stats?.speed.toString().ifBlank { "-" }
+			findViewById<MaterialButton>(R.id.stat_height_value).text = stats?.height.toString().ifBlank { "-" }
+			findViewById<MaterialButton>(R.id.stat_weight_value).text = stats?.weight.toString().ifBlank { "-" }
+			findViewById<MaterialButton>(R.id.stat_types_value).text = TextUtils.join("\n", stats?.types!!).ifBlank { "-" }
+			findViewById<MaterialButton>(R.id.stat_abilities_value).text = TextUtils.join("\n", stats?.abilities!!).ifBlank { "-" }
+			findViewById<MaterialButton>(R.id.stat_items_value).text = TextUtils.join("\n", stats?.items!!).ifBlank { "-" }
+			findViewById<MaterialButton>(R.id.stat_movements_value).text = TextUtils.join("\n", stats?.movements!!).ifBlank { "-" }
+		} else {
+			lifecycleScope.launch(Dispatchers.IO) {
+				val result = PokeRepository.stats(pokemon!!.id)
+				if (result != null) {
+					pokemon!!.stats = result.stats
+					runOnUiThread { updateUI() }
+				}
+			}
 		}
 	}
 
