@@ -1,30 +1,23 @@
 package org.egasato.pokedex.model.dm
 
-import android.graphics.Bitmap
 import org.egasato.pokedex.log.PokeLogger
 
 /** The Kotlin logger object. */
 private val logger = PokeLogger.logger {}
 
 /** The complete name of the class. */
-private val CLASS = Pokemon::class.java.canonicalName
+private val CLASS = PokeStatsResponse::class.java.canonicalName
 
 /**
- * The Pokémon shown in the list.
+ * The response of a Pokémon stats query.
  *
- * It holds a reference to its stats, which will be populated once selected.
- *
- * @property id    The unique identifier.
- * @property name  The name.
- * @property image The image.
+ * @property id    The id.
  * @property stats The stats.
  * @author Esaú García Sánchez-Torija
  */
-data class Pokemon(
+class PokeStatsResponse(
 	val id: Int,
-	val name: String,
-	var image: Bitmap?,
-	var stats: PokemonStats?
+	val stats: PokemonStats
 ) {
 
 	// Logs the object creation
@@ -52,24 +45,18 @@ data class Pokemon(
 	 */
 	class Builder {
 
-		/** The unique identifier. */
-		var id = 0
+		/** The id. */
+		@JvmField var id = -1
 
-		/** The name. */
-		var name = ""
-
-		/** The image. */
-		var image: Bitmap? = null
-
-		/** The stats builder. */
-		var stats: PokemonStats? = null
+		/** The stats. */
+		@JvmField var stats: PokemonStats? = null
 
 		/**
-		 * Builds the pokemon instance.
+		 * Builds a stats response instance.
 		 *
-		 * @return The pokemon instance.
+		 * @return The stats response instance.
 		 */
-		fun build() = Pokemon(id, name, image, stats)
+		fun build() = PokeStatsResponse(id, stats!!)
 
 	}
 
