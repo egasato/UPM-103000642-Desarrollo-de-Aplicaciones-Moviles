@@ -51,8 +51,8 @@
 	<string name="stat_health">Health</string>
 	<string name="stat_attack">Attack</string>
 	<string name="stat_defense">Defense</string>
-	<string name="stat_special_attack">Special\nattack</string>
-	<string name="stat_special_defense">Special\ndefense</string>
+	<string name="stat_special_attack">Special attack</string>
+	<string name="stat_special_defense">Special defense</string>
 	<string name="stat_speed">Speed</string>
 	<string name="stat_types">Types</string>
 	<string name="stat_height">Height</string>

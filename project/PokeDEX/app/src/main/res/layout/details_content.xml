@@ -4,7 +4,6 @@
 									   xmlns:tools="http://schemas.android.com/tools"
 									   android:layout_width="match_parent"
 									   android:layout_height="wrap_content"
-									   android:padding="20dp"
 									   app:layout_behavior="@string/appbar_scrolling_view_behavior"
 									   tools:context=".app.PokeDetailsActivity"
 									   tools:showIn="@layout/details_activity">
@@ -12,12 +11,13 @@
 	<androidx.constraintlayout.widget.ConstraintLayout
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:orientation="vertical">
+		android:orientation="vertical"
+		android:padding="20dp">
 
 		<!-- The health points label -->
 		<com.google.android.material.button.MaterialButton
 			android:id="@+id/stat_health_label"
-			style="@style/Widget.PokeDEX.Button.Details"
+			style="@style/Widget.PokeDEX.Button.DetailsLabel"
 			android:text="@string/stat_health"
 			app:layout_constraintStart_toStartOf="parent"
 			app:layout_constraintTop_toTopOf="parent" />
@@ -25,210 +25,318 @@
 		<!-- The health points value -->
 		<com.google.android.material.button.MaterialButton
 			android:id="@+id/stat_health_value"
-			style="@style/Widget.MaterialComponents.Button.TextButton"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
+			style="@style/Widget.PokeDEX.Button.DetailsValue"
 			android:text="@string/unavailable"
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintTop_toTopOf="parent" />
 
+		<!-- The health barrier -->
+		<androidx.constraintlayout.widget.Barrier
+			android:id="@+id/stat_health_barrier"
+			style="@style/PokeDEX_Barrier"
+			app:constraint_referenced_ids="stat_health_label,stat_health_value" />
+
+		<!-- The health separator -->
+		<View
+			android:id="@+id/stat_health_divider"
+			style="@style/PokeDEX_Divider"
+			app:layout_constraintTop_toBottomOf="@id/stat_health_barrier" />
+
 		<!-- The attack points label -->
 		<com.google.android.material.button.MaterialButton
 			android:id="@+id/stat_attack_label"
-			style="@style/Widget.PokeDEX.Button.Details"
+			style="@style/Widget.PokeDEX.Button.DetailsLabel"
 			android:text="@string/stat_attack"
 			app:layout_constraintStart_toStartOf="parent"
-			app:layout_constraintTop_toBottomOf="@id/stat_health_label" />
+			app:layout_constraintTop_toBottomOf="@id/stat_health_divider" />
 
 		<!-- The attack points value -->
 		<com.google.android.material.button.MaterialButton
 			android:id="@+id/stat_attack_value"
-			style="@style/Widget.MaterialComponents.Button.TextButton"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
+			style="@style/Widget.PokeDEX.Button.DetailsValue"
 			android:text="@string/unavailable"
 			app:layout_constraintEnd_toEndOf="parent"
-			app:layout_constraintTop_toBottomOf="@id/stat_health_value" />
+			app:layout_constraintTop_toBottomOf="@id/stat_health_divider" />
+
+		<!-- The attack barrier -->
+		<androidx.constraintlayout.widget.Barrier
+			android:id="@+id/stat_attack_barrier"
+			style="@style/PokeDEX_Barrier"
+			app:constraint_referenced_ids="stat_attack_label,stat_attack_value" />
+
+		<!-- The attack separator -->
+		<View
+			android:id="@+id/stat_attack_divider"
+			style="@style/PokeDEX_Divider"
+			app:layout_constraintTop_toBottomOf="@id/stat_attack_barrier" />
 
 		<!-- The defense points label -->
 		<com.google.android.material.button.MaterialButton
 			android:id="@+id/stat_defense_label"
-			style="@style/Widget.PokeDEX.Button.Details"
+			style="@style/Widget.PokeDEX.Button.DetailsLabel"
 			android:text="@string/stat_defense"
 			app:layout_constraintStart_toStartOf="parent"
-			app:layout_constraintTop_toBottomOf="@id/stat_attack_label" />
+			app:layout_constraintTop_toBottomOf="@id/stat_attack_divider" />
 
 		<!-- The defense points value -->
 		<com.google.android.material.button.MaterialButton
 			android:id="@+id/stat_defense_value"
-			style="@style/Widget.MaterialComponents.Button.TextButton"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
+			style="@style/Widget.PokeDEX.Button.DetailsValue"
 			android:text="@string/unavailable"
 			app:layout_constraintEnd_toEndOf="parent"
-			app:layout_constraintTop_toBottomOf="@id/stat_attack_value" />
+			app:layout_constraintTop_toBottomOf="@id/stat_attack_divider" />
+
+		<!-- The defense barrier -->
+		<androidx.constraintlayout.widget.Barrier
+			android:id="@+id/stat_defense_barrier"
+			style="@style/PokeDEX_Barrier"
+			app:constraint_referenced_ids="stat_defense_label,stat_defense_value" />
+
+		<!-- The defense separator -->
+		<View
+			android:id="@+id/stat_defense_divider"
+			style="@style/PokeDEX_Divider"
+			app:layout_constraintTop_toBottomOf="@id/stat_defense_barrier" />
 
 		<!-- The special attack points label -->
 		<com.google.android.material.button.MaterialButton
 			android:id="@+id/stat_special_attack_label"
-			style="@style/Widget.PokeDEX.Button.Details"
+			style="@style/Widget.PokeDEX.Button.DetailsLabel"
 			android:text="@string/stat_special_attack"
 			app:layout_constraintStart_toStartOf="parent"
-			app:layout_constraintTop_toBottomOf="@id/stat_defense_label" />
+			app:layout_constraintTop_toBottomOf="@id/stat_defense_divider" />
 
 		<!-- The special attack points value -->
 		<com.google.android.material.button.MaterialButton
 			android:id="@+id/stat_special_attack_value"
-			style="@style/Widget.MaterialComponents.Button.TextButton"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
+			style="@style/Widget.PokeDEX.Button.DetailsValue"
 			android:text="@string/unavailable"
 			app:layout_constraintEnd_toEndOf="parent"
-			app:layout_constraintTop_toBottomOf="@id/stat_defense_value" />
+			app:layout_constraintTop_toBottomOf="@id/stat_defense_divider" />
+
+		<!-- The special attack barrier -->
+		<androidx.constraintlayout.widget.Barrier
+			android:id="@+id/stat_special_attack_barrier"
+			style="@style/PokeDEX_Barrier"
+			app:constraint_referenced_ids="stat_special_attack_label,stat_special_attack_value" />
+
+		<!-- The special attack separator -->
+		<View
+			android:id="@+id/stat_special_attack_divider"
+			style="@style/PokeDEX_Divider"
+			app:layout_constraintTop_toBottomOf="@id/stat_special_attack_barrier" />
 
 		<!-- The special defense points label -->
 		<com.google.android.material.button.MaterialButton
 			android:id="@+id/stat_special_defense_label"
-			style="@style/Widget.PokeDEX.Button.Details"
+			style="@style/Widget.PokeDEX.Button.DetailsLabel"
 			android:text="@string/stat_special_defense"
 			app:layout_constraintStart_toStartOf="parent"
-			app:layout_constraintTop_toBottomOf="@id/stat_special_attack_label" />
+			app:layout_constraintTop_toBottomOf="@id/stat_special_attack_divider" />
 
 		<!-- The special defense points value -->
 		<com.google.android.material.button.MaterialButton
 			android:id="@+id/stat_special_defense_value"
-			style="@style/Widget.MaterialComponents.Button.TextButton"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
+			style="@style/Widget.PokeDEX.Button.DetailsValue"
 			android:text="@string/unavailable"
 			app:layout_constraintEnd_toEndOf="parent"
-			app:layout_constraintTop_toBottomOf="@id/stat_special_attack_value" />
+			app:layout_constraintTop_toBottomOf="@id/stat_special_attack_divider" />
+
+		<!-- The special defense barrier -->
+		<androidx.constraintlayout.widget.Barrier
+			android:id="@+id/stat_special_defense_barrier"
+			style="@style/PokeDEX_Barrier"
+			app:constraint_referenced_ids="stat_special_defense_label,stat_special_defense_value" />
+
+		<!-- The special defense separator -->
+		<View
+			android:id="@+id/stat_special_defense_divider"
+			style="@style/PokeDEX_Divider"
+			app:layout_constraintTop_toBottomOf="@id/stat_special_defense_barrier" />
 
 		<!-- The speed points label -->
 		<com.google.android.material.button.MaterialButton
 			android:id="@+id/stat_speed_label"
-			style="@style/Widget.PokeDEX.Button.Details"
+			style="@style/Widget.PokeDEX.Button.DetailsLabel"
 			android:text="@string/stat_speed"
 			app:layout_constraintStart_toStartOf="parent"
-			app:layout_constraintTop_toBottomOf="@id/stat_special_defense_label" />
+			app:layout_constraintTop_toBottomOf="@id/stat_special_defense_divider" />
 
 		<!-- The speed points value -->
 		<com.google.android.material.button.MaterialButton
 			android:id="@+id/stat_speed_value"
-			style="@style/Widget.MaterialComponents.Button.TextButton"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
+			style="@style/Widget.PokeDEX.Button.DetailsValue"
 			android:text="@string/unavailable"
 			app:layout_constraintEnd_toEndOf="parent"
-			app:layout_constraintTop_toBottomOf="@id/stat_special_defense_value" />
+			app:layout_constraintTop_toBottomOf="@id/stat_special_defense_divider" />
+
+		<!-- The speed barrier -->
+		<androidx.constraintlayout.widget.Barrier
+			android:id="@+id/stat_speed_barrier"
+			style="@style/PokeDEX_Barrier"
+			app:constraint_referenced_ids="stat_speed_label,stat_speed_value" />
+
+		<!-- The speed separator -->
+		<View
+			android:id="@+id/stat_speed_divider"
+			style="@style/PokeDEX_Divider"
+			app:layout_constraintTop_toBottomOf="@id/stat_speed_barrier" />
 
 		<!-- The types label -->
 		<com.google.android.material.button.MaterialButton
 			android:id="@+id/stat_types_label"
-			style="@style/Widget.PokeDEX.Button.Details"
+			style="@style/Widget.PokeDEX.Button.DetailsLabel"
 			android:text="@string/stat_types"
 			app:layout_constraintStart_toStartOf="parent"
-			app:layout_constraintTop_toBottomOf="@id/stat_speed_label" />
+			app:layout_constraintTop_toBottomOf="@id/stat_speed_divider" />
 
-		<!-- The speed points value -->
+		<!-- The types value -->
 		<com.google.android.material.button.MaterialButton
 			android:id="@+id/stat_types_value"
-			style="@style/Widget.MaterialComponents.Button.TextButton"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
+			style="@style/Widget.PokeDEX.Button.DetailsValue"
 			android:text="@string/unavailable"
 			app:layout_constraintEnd_toEndOf="parent"
-			app:layout_constraintTop_toBottomOf="@id/stat_speed_value" />
+			app:layout_constraintTop_toBottomOf="@id/stat_speed_divider" />
+
+		<!-- The types barrier -->
+		<androidx.constraintlayout.widget.Barrier
+			android:id="@+id/stat_types_barrier"
+			style="@style/PokeDEX_Barrier"
+			app:constraint_referenced_ids="stat_types_label,stat_types_value" />
+
+		<!-- The types separator -->
+		<View
+			android:id="@+id/stat_types_divider"
+			style="@style/PokeDEX_Divider"
+			app:layout_constraintTop_toBottomOf="@id/stat_types_barrier" />
 
 		<!-- The height label -->
 		<com.google.android.material.button.MaterialButton
 			android:id="@+id/stat_height_label"
-			style="@style/Widget.PokeDEX.Button.Details"
+			style="@style/Widget.PokeDEX.Button.DetailsLabel"
 			android:text="@string/stat_height"
 			app:layout_constraintStart_toStartOf="parent"
-			app:layout_constraintTop_toBottomOf="@id/stat_types_label" />
+			app:layout_constraintTop_toBottomOf="@id/stat_types_divider" />
 
 		<!-- The height value -->
 		<com.google.android.material.button.MaterialButton
 			android:id="@+id/stat_height_value"
-			style="@style/Widget.MaterialComponents.Button.TextButton"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
+			style="@style/Widget.PokeDEX.Button.DetailsValue"
 			android:text="@string/unavailable"
 			app:layout_constraintEnd_toEndOf="parent"
-			app:layout_constraintTop_toBottomOf="@id/stat_types_value" />
+			app:layout_constraintTop_toBottomOf="@id/stat_types_divider" />
+
+		<!-- The height barrier -->
+		<androidx.constraintlayout.widget.Barrier
+			android:id="@+id/stat_height_barrier"
+			style="@style/PokeDEX_Barrier"
+			app:constraint_referenced_ids="stat_height_label,stat_height_value" />
+
+		<!-- The height separator -->
+		<View
+			android:id="@+id/stat_height_divider"
+			style="@style/PokeDEX_Divider"
+			app:layout_constraintTop_toBottomOf="@id/stat_height_barrier" />
 
 		<!-- The weight label -->
 		<com.google.android.material.button.MaterialButton
 			android:id="@+id/stat_weight_label"
-			style="@style/Widget.PokeDEX.Button.Details"
+			style="@style/Widget.PokeDEX.Button.DetailsLabel"
 			android:text="@string/stat_weight"
 			app:layout_constraintStart_toStartOf="parent"
-			app:layout_constraintTop_toBottomOf="@id/stat_height_label" />
+			app:layout_constraintTop_toBottomOf="@id/stat_height_divider" />
 
 		<!-- The weight value -->
 		<com.google.android.material.button.MaterialButton
 			android:id="@+id/stat_weight_value"
-			style="@style/Widget.MaterialComponents.Button.TextButton"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
+			style="@style/Widget.PokeDEX.Button.DetailsValue"
 			android:text="@string/unavailable"
 			app:layout_constraintEnd_toEndOf="parent"
-			app:layout_constraintTop_toBottomOf="@id/stat_height_value" />
+			app:layout_constraintTop_toBottomOf="@id/stat_height_divider" />
+
+		<!-- The weight barrier -->
+		<androidx.constraintlayout.widget.Barrier
+			android:id="@+id/stat_weight_barrier"
+			style="@style/PokeDEX_Barrier"
+			app:constraint_referenced_ids="stat_weight_label,stat_weight_value" />
+
+		<!-- The weight separator -->
+		<View
+			android:id="@+id/stat_weight_divider"
+			style="@style/PokeDEX_Divider"
+			app:layout_constraintTop_toBottomOf="@id/stat_weight_barrier" />
 
 		<!-- The abilities label -->
 		<com.google.android.material.button.MaterialButton
 			android:id="@+id/stat_abilities_label"
-			style="@style/Widget.PokeDEX.Button.Details"
+			style="@style/Widget.PokeDEX.Button.DetailsLabel"
 			android:text="@string/stat_abilities"
 			app:layout_constraintStart_toStartOf="parent"
-			app:layout_constraintTop_toBottomOf="@id/stat_weight_label" />
+			app:layout_constraintTop_toBottomOf="@id/stat_weight_divider" />
 
 		<!-- The abilities value -->
 		<com.google.android.material.button.MaterialButton
 			android:id="@+id/stat_abilities_value"
-			style="@style/Widget.MaterialComponents.Button.TextButton"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
+			style="@style/Widget.PokeDEX.Button.DetailsValue"
 			android:text="@string/unavailable"
 			app:layout_constraintEnd_toEndOf="parent"
-			app:layout_constraintTop_toBottomOf="@id/stat_weight_value" />
+			app:layout_constraintTop_toBottomOf="@id/stat_weight_divider" />
+
+		<!-- The abilities barrier -->
+		<androidx.constraintlayout.widget.Barrier
+			android:id="@+id/stat_abilities_barrier"
+			style="@style/PokeDEX_Barrier"
+			app:constraint_referenced_ids="stat_abilities_label,stat_abilities_value" />
+
+		<!-- The abilities separator -->
+		<View
+			android:id="@+id/stat_abilities_divider"
+			style="@style/PokeDEX_Divider"
+			app:layout_constraintTop_toBottomOf="@id/stat_abilities_barrier" />
 
 		<!-- The items label -->
 		<com.google.android.material.button.MaterialButton
 			android:id="@+id/stat_items_label"
-			style="@style/Widget.PokeDEX.Button.Details"
+			style="@style/Widget.PokeDEX.Button.DetailsLabel"
 			android:text="@string/stat_items"
 			app:layout_constraintStart_toStartOf="parent"
-			app:layout_constraintTop_toBottomOf="@id/stat_abilities_label" />
+			app:layout_constraintTop_toBottomOf="@id/stat_abilities_divider" />
 
-		<!-- The abilities value -->
+		<!-- The items value -->
 		<com.google.android.material.button.MaterialButton
 			android:id="@+id/stat_items_value"
-			style="@style/Widget.MaterialComponents.Button.TextButton"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
+			style="@style/Widget.PokeDEX.Button.DetailsValue"
 			android:text="@string/unavailable"
 			app:layout_constraintEnd_toEndOf="parent"
-			app:layout_constraintTop_toBottomOf="@id/stat_abilities_value" />
+			app:layout_constraintTop_toBottomOf="@id/stat_abilities_divider" />
+
+		<!-- The items barrier -->
+		<androidx.constraintlayout.widget.Barrier
+			android:id="@+id/stat_items_barrier"
+			style="@style/PokeDEX_Barrier"
+			app:constraint_referenced_ids="stat_items_label,stat_items_value" />
+
+		<!-- The items separator -->
+		<View
+			android:id="@+id/stat_items_divider"
+			style="@style/PokeDEX_Divider"
+			app:layout_constraintTop_toBottomOf="@id/stat_items_barrier" />
 
 		<!-- The movements label -->
 		<com.google.android.material.button.MaterialButton
 			android:id="@+id/stat_movements_label"
-			style="@style/Widget.PokeDEX.Button.Details"
+			style="@style/Widget.PokeDEX.Button.DetailsLabel"
 			android:text="@string/stat_movements"
 			app:layout_constraintStart_toStartOf="parent"
-			app:layout_constraintTop_toBottomOf="@id/stat_items_label" />
+			app:layout_constraintTop_toBottomOf="@id/stat_items_divider" />
 
 		<!-- The movements value -->
 		<com.google.android.material.button.MaterialButton
 			android:id="@+id/stat_movements_value"
-			style="@style/Widget.MaterialComponents.Button.TextButton"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
+			style="@style/Widget.PokeDEX.Button.DetailsValue"
 			android:text="@string/unavailable"
 			app:layout_constraintEnd_toEndOf="parent"
-			app:layout_constraintTop_toBottomOf="@id/stat_items_value" />
+			app:layout_constraintTop_toBottomOf="@id/stat_items_divider" />
 
 	</androidx.constraintlayout.widget.ConstraintLayout>
 

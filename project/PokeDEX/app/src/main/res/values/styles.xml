@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 	<!-- Title -->
 	<style name="Base.TextAppearance.PokeDEX.Widget.ActionBar.Title" parent="TextAppearance.AppCompat.Widget.ActionBar.Title">
 		<item name="android:layout_gravity">center</item>
@@ -34,22 +34,48 @@
 		<item name="android:textColor">@color/brown_700</item>
 		<item name="backgroundTint">@color/light_brown_500</item>
 	</style>
-	<style name="Base.Widget.PokeDEX.Button.Details" parent="Widget.MaterialComponents.Button.TextButton">
+	<style name="Base.Widget.PokeDEX.Button.DetailsLabel" parent="Widget.MaterialComponents.Button.TextButton">
 		<item name="android:insetTop">0dp</item>
 		<item name="android:insetBottom">0dp</item>
 		<item name="android:layout_height">wrap_content</item>
 		<item name="android:layout_width">wrap_content</item>
+		<item name="android:textSize">16sp</item>
 	</style>
-	<style name="Widget.PokeDEX.Button.Details" parent="Base.Widget.PokeDEX.Button.Details" />
+	<style name="Widget.PokeDEX.Button.DetailsLabel" parent="Base.Widget.PokeDEX.Button.DetailsLabel" />
+	<style name="Base.Widget.PokeDEX.Button.DetailsValue" parent="Widget.MaterialComponents.Button.TextButton">
+		<item name="android:insetTop">0dp</item>
+		<item name="android:insetBottom">0dp</item>
+		<item name="android:layout_height">wrap_content</item>
+		<item name="android:layout_width">wrap_content</item>
+		<item name="android:textColor">@color/black_700</item>
+		<item name="android:textSize">16sp</item>
+		<item name="textAllCaps">false</item>
+	</style>
+	<style name="Widget.PokeDEX.Button.DetailsValue" parent="Base.Widget.PokeDEX.Button.DetailsValue" />
 
 	<!-- Identifier -->
 	<style name="Base.TextAppearance.PokeDEX.Widget.Identifier" parent="Widget.MaterialComponents.TextView">
 		<item name="android:layout_height">wrap_content</item>
 		<item name="android:layout_width">wrap_content</item>
+		<item name="android:letterSpacing" tools:targetApi="lollipop">0</item>
 		<item name="android:textColor">@color/light_yellow_500</item>
 		<item name="android:textSize">@dimen/pokemon_id</item>
 		<item name="strokeColor">@android:color/black</item>
 		<item name="strokeWidth">@dimen/pokemon_id_stroke</item>
 	</style>
 	<style name="TextAppearance.PokeDEX.Widget.Identifier" parent="Base.TextAppearance.PokeDEX.Widget.Identifier" />
+
+	<!-- The barrier and divider -->
+	<style name="PokeDEX_Barrier">
+		<item name="android:layout_width">wrap_content</item>
+		<item name="android:layout_height">wrap_content</item>
+		<item name="barrierDirection">bottom</item>
+	</style>
+	<style name="PokeDEX_Divider">
+		<item name="android:layout_width">match_parent</item>
+		<item name="android:layout_height">1dp</item>
+		<item name="android:layout_centerVertical">true</item>
+		<item name="android:background">@drawable/linear</item>
+		<item name="layout_constraintStart_toStartOf">parent</item>
+	</style>
 </resources>
