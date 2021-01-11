@@ -8,6 +8,7 @@ import org.egasato.pokedex.content.PokePreferences
 import org.egasato.pokedex.lib.crypto.PRNG
 import org.egasato.pokedex.lib.security.keystore.Keystore
 import org.egasato.pokedex.log.PokeLogger
+import org.egasato.pokedex.model.dm.Pokemon
 
 /** The Kotlin logger object. */
 private val logger = PokeLogger.logger {}
@@ -31,6 +32,9 @@ class PokeApplication : Application() {
 
 	/** A secure-if-possible shared preferences instance. */
 	lateinit var preferences: PokePreferences
+
+	/** The list of Pokémon. */
+	val pokemons = arrayOfNulls<Pokemon>(1118).toMutableList()
 
 	// Logs the object creation
 	init {

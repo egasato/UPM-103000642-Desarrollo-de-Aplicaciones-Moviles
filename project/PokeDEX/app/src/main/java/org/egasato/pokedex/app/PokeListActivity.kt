@@ -51,7 +51,7 @@ private val DELAY_MOVEMENT = arrayOf(15L, 30L).map {
  *
  * @author Esaú García Sánchez-Torija
  */
-class PokeListActivity : AppCompatActivity() {
+class PokeListActivity : AppCompatActivity(), PokeApplication.Aware {
 
 	/** The view model of the authentication activity. */
 	private val model by viewModels<PokeViewModel>()
@@ -111,7 +111,7 @@ class PokeListActivity : AppCompatActivity() {
 		findViewById<RecyclerView>(R.id.list).also {
 			it.setHasFixedSize(true)
 			it.itemAnimator?.changeDuration = 0
-			it.adapter = PokeListAdapter(this, model.pokemons).apply {
+			it.adapter = PokeListAdapter(this, app.pokemons).apply {
 				onClickListener = ::onPokemonClick
 			}
 		}

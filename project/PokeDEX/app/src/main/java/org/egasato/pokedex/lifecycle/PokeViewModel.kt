@@ -44,9 +44,6 @@ class PokeViewModel : ViewModel() {
 	/** The offset value. */
 	lateinit var offset: Pair<Float, Float>
 
-	/** The list of Pokémon. */
-	val pokemons = arrayOfNulls<Pokemon>(1118).toMutableList()
-
 	// Logs the object creation
 	init {
 		logger.cycle { "Creating an instance of $CLASS" }
