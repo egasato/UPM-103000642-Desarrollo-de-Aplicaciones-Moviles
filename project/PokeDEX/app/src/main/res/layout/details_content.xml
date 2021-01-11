@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+									   xmlns:app="http://schemas.android.com/apk/res-auto"
+									   xmlns:tools="http://schemas.android.com/tools"
+									   android:layout_width="match_parent"
+									   android:layout_height="wrap_content"
+									   android:padding="20dp"
+									   app:layout_behavior="@string/appbar_scrolling_view_behavior"
+									   tools:context=".app.PokeDetailsActivity"
+									   tools:showIn="@layout/details_activity">
+
+	<androidx.constraintlayout.widget.ConstraintLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:orientation="vertical">
+
+		<!-- The health points label -->
+		<com.google.android.material.button.MaterialButton
+			android:id="@+id/stat_health_label"
+			style="@style/Widget.PokeDEX.Button.Details"
+			android:text="@string/stat_health"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toTopOf="parent" />
+
+		<!-- The health points value -->
+		<com.google.android.material.button.MaterialButton
+			android:id="@+id/stat_health_value"
+			style="@style/Widget.MaterialComponents.Button.TextButton"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="@string/unavailable"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintTop_toTopOf="parent" />
+
+		<!-- The attack points label -->
+		<com.google.android.material.button.MaterialButton
+			android:id="@+id/stat_attack_label"
+			style="@style/Widget.PokeDEX.Button.Details"
+			android:text="@string/stat_attack"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toBottomOf="@id/stat_health_label" />
+
+		<!-- The attack points value -->
+		<com.google.android.material.button.MaterialButton
+			android:id="@+id/stat_attack_value"
+			style="@style/Widget.MaterialComponents.Button.TextButton"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="@string/unavailable"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintTop_toBottomOf="@id/stat_health_value" />
+
+		<!-- The defense points label -->
+		<com.google.android.material.button.MaterialButton
+			android:id="@+id/stat_defense_label"
+			style="@style/Widget.PokeDEX.Button.Details"
+			android:text="@string/stat_defense"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toBottomOf="@id/stat_attack_label" />
+
+		<!-- The defense points value -->
+		<com.google.android.material.button.MaterialButton
+			android:id="@+id/stat_defense_value"
+			style="@style/Widget.MaterialComponents.Button.TextButton"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="@string/unavailable"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintTop_toBottomOf="@id/stat_attack_value" />
+
+		<!-- The special attack points label -->
+		<com.google.android.material.button.MaterialButton
+			android:id="@+id/stat_special_attack_label"
+			style="@style/Widget.PokeDEX.Button.Details"
+			android:text="@string/stat_special_attack"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toBottomOf="@id/stat_defense_label" />
+
+		<!-- The special attack points value -->
+		<com.google.android.material.button.MaterialButton
+			android:id="@+id/stat_special_attack_value"
+			style="@style/Widget.MaterialComponents.Button.TextButton"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="@string/unavailable"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintTop_toBottomOf="@id/stat_defense_value" />
+
+		<!-- The special defense points label -->
+		<com.google.android.material.button.MaterialButton
+			android:id="@+id/stat_special_defense_label"
+			style="@style/Widget.PokeDEX.Button.Details"
+			android:text="@string/stat_special_defense"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toBottomOf="@id/stat_special_attack_label" />
+
+		<!-- The special defense points value -->
+		<com.google.android.material.button.MaterialButton
+			android:id="@+id/stat_special_defense_value"
+			style="@style/Widget.MaterialComponents.Button.TextButton"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="@string/unavailable"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintTop_toBottomOf="@id/stat_special_attack_value" />
+
+		<!-- The speed points label -->
+		<com.google.android.material.button.MaterialButton
+			android:id="@+id/stat_speed_label"
+			style="@style/Widget.PokeDEX.Button.Details"
+			android:text="@string/stat_speed"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toBottomOf="@id/stat_special_defense_label" />
+
+		<!-- The speed points value -->
+		<com.google.android.material.button.MaterialButton
+			android:id="@+id/stat_speed_value"
+			style="@style/Widget.MaterialComponents.Button.TextButton"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="@string/unavailable"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintTop_toBottomOf="@id/stat_special_defense_value" />
+
+		<!-- The types label -->
+		<com.google.android.material.button.MaterialButton
+			android:id="@+id/stat_types_label"
+			style="@style/Widget.PokeDEX.Button.Details"
+			android:text="@string/stat_types"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toBottomOf="@id/stat_speed_label" />
+
+		<!-- The speed points value -->
+		<com.google.android.material.button.MaterialButton
+			android:id="@+id/stat_types_value"
+			style="@style/Widget.MaterialComponents.Button.TextButton"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="@string/unavailable"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintTop_toBottomOf="@id/stat_speed_value" />
+
+		<!-- The height label -->
+		<com.google.android.material.button.MaterialButton
+			android:id="@+id/stat_height_label"
+			style="@style/Widget.PokeDEX.Button.Details"
+			android:text="@string/stat_height"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toBottomOf="@id/stat_types_label" />
+
+		<!-- The height value -->
+		<com.google.android.material.button.MaterialButton
+			android:id="@+id/stat_height_value"
+			style="@style/Widget.MaterialComponents.Button.TextButton"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="@string/unavailable"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintTop_toBottomOf="@id/stat_types_value" />
+
+		<!-- The weight label -->
+		<com.google.android.material.button.MaterialButton
+			android:id="@+id/stat_weight_label"
+			style="@style/Widget.PokeDEX.Button.Details"
+			android:text="@string/stat_weight"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toBottomOf="@id/stat_height_label" />
+
+		<!-- The weight value -->
+		<com.google.android.material.button.MaterialButton
+			android:id="@+id/stat_weight_value"
+			style="@style/Widget.MaterialComponents.Button.TextButton"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="@string/unavailable"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintTop_toBottomOf="@id/stat_height_value" />
+
+		<!-- The abilities label -->
+		<com.google.android.material.button.MaterialButton
+			android:id="@+id/stat_abilities_label"
+			style="@style/Widget.PokeDEX.Button.Details"
+			android:text="@string/stat_abilities"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toBottomOf="@id/stat_weight_label" />
+
+		<!-- The abilities value -->
+		<com.google.android.material.button.MaterialButton
+			android:id="@+id/stat_abilities_value"
+			style="@style/Widget.MaterialComponents.Button.TextButton"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="@string/unavailable"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintTop_toBottomOf="@id/stat_weight_value" />
+
+		<!-- The items label -->
+		<com.google.android.material.button.MaterialButton
+			android:id="@+id/stat_items_label"
+			style="@style/Widget.PokeDEX.Button.Details"
+			android:text="@string/stat_items"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toBottomOf="@id/stat_abilities_label" />
+
+		<!-- The abilities value -->
+		<com.google.android.material.button.MaterialButton
+			android:id="@+id/stat_items_value"
+			style="@style/Widget.MaterialComponents.Button.TextButton"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="@string/unavailable"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintTop_toBottomOf="@id/stat_abilities_value" />
+
+		<!-- The movements label -->
+		<com.google.android.material.button.MaterialButton
+			android:id="@+id/stat_movements_label"
+			style="@style/Widget.PokeDEX.Button.Details"
+			android:text="@string/stat_movements"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toBottomOf="@id/stat_items_label" />
+
+		<!-- The movements value -->
+		<com.google.android.material.button.MaterialButton
+			android:id="@+id/stat_movements_value"
+			style="@style/Widget.MaterialComponents.Button.TextButton"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="@string/unavailable"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintTop_toBottomOf="@id/stat_items_value" />
+
+	</androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.core.widget.NestedScrollView>

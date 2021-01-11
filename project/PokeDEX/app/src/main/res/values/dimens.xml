@@ -14,4 +14,5 @@
 	<dimen name="pokemon_name">20sp</dimen>
 	<dimen name="pokemon_id">16sp</dimen>
 	<dimen name="pokemon_id_stroke">12sp</dimen>
+	<dimen name="details_height">240dp</dimen>
 </resources>
