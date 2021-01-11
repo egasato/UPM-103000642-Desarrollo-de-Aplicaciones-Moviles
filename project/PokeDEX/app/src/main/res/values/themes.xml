@@ -18,6 +18,14 @@
 		<item name="popupTheme">@style/ThemeOverlay.AppCompat.Dark</item>
 	</style>
 
+	<!-- The themes of the details activity -->
+	<style name="Theme.PokeDEX.Details">
+		<item name="windowActionBar">false</item>
+		<item name="windowNoTitle">true</item>
+	</style>
+	<style name="ThemeOverlay.PokeDEX.AppBarOverlay" parent="ThemeOverlay.MaterialComponents.Dark.ActionBar" />
+	<style name="ThemeOverlay.PokeDEX.PopupOverlay" parent="ThemeOverlay.MaterialComponents.Light" />
+
 	<!-- The PokéDEX theme -->
 	<style name="Theme.PokeDEX" parent="Theme.MaterialComponents.Light.DarkActionBar">
 		<!-- Primary brand -->
