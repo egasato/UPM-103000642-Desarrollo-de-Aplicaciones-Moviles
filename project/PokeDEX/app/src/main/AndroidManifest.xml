@@ -53,7 +53,7 @@
 		<meta-data android:name="com.google.android.backup.api_key" android:value="AEdPqrEAAAAIZYro5r36Kn1vZy-kh1cvAReW4SElZtcyZZYzzg" />
 
 		<!-- Declare the main activity to be started by the launcher (splash) -->
-		<activity android:name=".app.PokeMainActivity" android:noHistory="true"  android:theme="@style/Theme.PokeDEX.Splash">
+		<activity android:name=".app.PokeMainActivity" android:noHistory="true" android:theme="@style/Theme.PokeDEX.Splash">
 			<intent-filter>
 				<action android:name="android.intent.action.MAIN" />
 				<category android:name="android.intent.category.LAUNCHER" />
@@ -67,7 +67,7 @@
 		<activity android:name=".app.PokeListActivity" />
 
 		<!-- Declare the details activity -->
-		<activity android:name=".app.PokeDetailsActivity" />
+		<activity android:name=".app.PokeDetailsActivity" android:theme="@style/Theme.PokeDEX.Details" />
 
 	</application>
 
